@@ -45,7 +45,7 @@ const showingNavigationDropdown = ref(false);
 
         </div>
 
-        <div class="flex">
+        <div class="flex bg-[#121212]">
 
         <!-- Sidebar -->
         <div class="w-64 bg-blue-800 text-white  dark:bg-[#1d1d1d] dark:text-gray-200 mx-5 rounded-lg p-2 mt-12 h-96">
@@ -66,7 +66,7 @@ const showingNavigationDropdown = ref(false);
             </div>
             <!-- Navigation Links -->
             <div class="space-y-4">
-                <NavLink :href="route('dashboard')" :active="route().current('dashboard')"
+                <NavLink :href="route('domain.index')" :active="route().current('domain.index')"
                     class="block px-4 py-2 text-sm">
                     Dominios
                 </NavLink>
@@ -83,9 +83,9 @@ const showingNavigationDropdown = ref(false);
         </div>
 
         <!-- Content Area -->
-        <div class="flex-1 overflow-hidden  ">
+        <div class="flex-1 overflow-hidden bg-[#121212]  ">
             <!-- Page Content -->
-            <main>
+            <main class="bg-[#121212]">
                 <slot />
             </main>
         </div>
