@@ -33,7 +33,7 @@ Class WhoisService implements WhoisServiceInterface{
 
                 return[
                     'domainName' => $info->getDomainName(),
-                    'expirationDate' => $expirationDate->toDateString()
+                    'expirationDate' => $expirationDate->toDateString(),
                 ];
 
             }
