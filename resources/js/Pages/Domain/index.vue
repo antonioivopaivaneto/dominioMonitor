@@ -9,18 +9,6 @@ const showDetails = ref(false);
 const show = ref(false);
 </script>
 
-<style>
-/* we will explain what these classes do next! */
-.v-enter-active,
-.v-leave-active {
-    transition: opacity 0.5s ease;
-}
-
-.v-enter-from,
-.v-leave-to {
-    opacity: 0;
-}
-</style>
 
 <template>
     <Head title="Dashboard" />
@@ -51,17 +39,11 @@ const show = ref(false);
                                     </h3>
                                 </div>
 
-                                <form-domain />
+                                <form-domain @toggleDetails="showDetails =true" />
 
-                                <button @click="showDetails = !showDetails">
-                                    Toggle
-                                </button>
 
-                                <Transition>
-                                    <div class="" v-if="showDetails">
-                                        <form-domain-details />
-                                    </div>
-                                </Transition>
+
+                                        <form-domain-details :isVisible="showDetails"   />
                             </div>
                         </div>
                     </div>

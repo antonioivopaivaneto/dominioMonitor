@@ -11,7 +11,8 @@
             </div>
             <div class="mt-4">
                 <button
-                    type="submit"
+                    type="button"
+                    @click="$emit('toggleDetails')"
                     class="px-4 py-2 rounded-md bg-orange-600 text-white hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
                 >
                     Buscar
@@ -25,4 +26,6 @@
 import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import TextInput from "@/Components/TextInput.vue";
+
+const emit= defineEmits(["toggleDetails"])
 </script>

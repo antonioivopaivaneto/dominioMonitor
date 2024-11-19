@@ -11,7 +11,7 @@ const showingNavigationDropdown = ref(false);
 </script>
 
 <template>
-    <div class="flex flex-col h-screen bg-gray-500  dark:bg-[#121212]">
+    <div class="flex flex-col h-screen bg-gray-500  dark:bg-[#000] fundo">
         <div class="  rounded-md mx-5 dark:bg-[#1d1d1d] p-6 mt-5">
                <!-- Settings Dropdown -->
                <div class="mt-auto px-4 py-2 float-end">
@@ -45,7 +45,7 @@ const showingNavigationDropdown = ref(false);
 
         </div>
 
-        <div class="flex bg-[#121212]">
+        <div class="flex bg-[#000]">
 
         <!-- Sidebar -->
         <div class="w-64 bg-blue-800 text-white  dark:bg-[#1d1d1d] dark:text-gray-200 mx-5 rounded-lg p-2 mt-12 h-96">
@@ -83,12 +83,28 @@ const showingNavigationDropdown = ref(false);
         </div>
 
         <!-- Content Area -->
-        <div class="flex-1 overflow-hidden bg-[#121212]  ">
+        <div class="flex-1 overflow-hidden bg-[#000]  ">
             <!-- Page Content -->
-            <main class="bg-[#121212]">
+            <main class="bg-[#000]">
                 <slot />
             </main>
         </div>
     </div>
     </div>
 </template>
+<style scoped>
+.fundo::before{
+    content: "";
+    display: block;
+    background-image: url(https://addrom.com/wp-content/uploads/2024/04/noise.webp);
+    opacity: .3;
+    background-repeat: repeat;
+    background-size: 257px auto;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+}
+</style>
