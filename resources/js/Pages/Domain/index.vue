@@ -43,7 +43,6 @@ const show = ref(false);
 
 
 
-                                        <form-domain-details :isVisible="showDetails"   />
                             </div>
                         </div>
                     </div>

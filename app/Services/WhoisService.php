@@ -29,11 +29,15 @@ Class WhoisService implements WhoisServiceInterface{
 
             if($info){
 
+
                 $expirationDate = Carbon::createFromTimestamp($info->getExpirationDate());
+
 
                 return[
                     'domainName' => $info->getDomainName(),
-                    'expirationDate' => $expirationDate->toDateString(),
+                    'expirationDate' => $expirationDate->format('d/m/Y'),
+                    'responsible' => $info->getOwner(),
+                    'status' => $info->getStates()
                 ];
 
             }

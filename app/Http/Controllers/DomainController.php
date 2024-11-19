@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\WhoisService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class DomainController extends Controller
 {
+    protected WhoisService $whois;
+
+    public function __construct(WhoisService $whois ) {
+        $this->whois = $whois;
+    }
     /**
      * Display a listing of the resource.
      */
@@ -28,7 +34,7 @@ class DomainController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**
@@ -37,6 +43,17 @@ class DomainController extends Controller
     public function show(string $id)
     {
         //
+    }
+    /**
+     * Display the specified resource.
+     */
+    public function getDomainLook($domain)
+    {
+
+      $result =  $this->whois->lookup($domain);
+
+      return response()->json( $result);
+
     }
 
     /**

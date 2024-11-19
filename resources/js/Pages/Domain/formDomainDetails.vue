@@ -1,89 +1,120 @@
 <template>
     <transition>
         <div class="" v-if="isVisible">
-        <div class="bg-[#111] p-2 rounded-md mt-10 text-gray-400 flex flex-col">
-            <div class="">Domain:wwwteste.com.br</div>
-            <div class="">Register in:20/20/2025</div>
-            <div class="">Expiration:20/20/2025</div>
-        </div>
 
-        <div class="mt-6">
-            <h4 class="text-lg font-semibold text-gray-200 mb-4">
-                Configuração de Notificação
-            </h4>
-            <form>
-                <div class="flex flex-col gap-4">
-                    <div class="">
-                        <label class="block text-sm font-medium text-gray-200"
-                            >Responsável</label
-                        >
-                        <TextInput
-                            placeholder="Nome do Responsável"
-                            class="bg-[#121212] w-96"
-                        />
-                    </div>
-                    <div class="">
-                        <label class="block text-sm font-medium text-gray-200"
-                            >Avisar quantos dias de antecedência</label
-                        >
-                        <TextInput
-                            type="number"
-                            min="1"
-                            placeholder="Ex: 30 dias"
-                            class="bg-[#121212] w-96"
-                        />
-                    </div>
-                    <div class="">
-                        <label class="block text-sm font-medium text-gray-200"
-                            >E-mail para notificação</label
-                        >
-                        <TextInput
-                            type="email"
-                            placeholder="email@examplo.com"
-                            class="bg-[#121212] w-96"
-                        />
-                    </div>
+            <!-- Exibindo as informações do domínio -->
+            <div class="bg-[#111] p-2 rounded-md mt-10 text-gray-400 flex flex-col">
+                <div class="">Domain: {{ data.domainName }}</div>
+                <div class="">Responsável: {{ data.responsible }}</div>
+                <div class="">Vencimento: {{ data.expirationDate }}</div>
+            </div>
 
-                    <div class="mt-6 flex gap-5">
-                        <button
-                            type="submit"
-                            class="px-4 py-2 rounded-md bg-orange-600 text-white hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
-                        >
-                            Salvar
-                        </button>
-                        <button
-                            type="button"
-                            @click="props.isVisible =false"
-                            class="px-4 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
-                        >
-                            Fechar
-                        </button>
+            <div class="mt-6">
+                <h4 class="text-lg font-semibold text-gray-200 mb-4">
+                    Configuração de Notificação
+                </h4>
+                <form @submit.prevent="handleSubmit">
+                    <div class="flex flex-col gap-4">
+                        <!-- Campo para o responsável -->
+                        <div class="">
+                            <label class="block text-sm font-medium text-gray-200">Responsável</label>
+                            <TextInput
+                                v-model="data.responsible"
+                                placeholder="Nome do Responsável"
+                                class="bg-[#121212] w-96"
+                            />
+                        </div>
+
+                        <!-- Campo para o número de dias de antecedência -->
+                        <div class="">
+                            <label class="block text-sm font-medium text-gray-200">
+                                Avisar quantos dias de antecedência
+                            </label>
+                            <TextInput
+                                v-model="formData.anticipationDays"
+                                type="number"
+                                min="1"
+                                placeholder="Ex: 30 dias"
+                                class="bg-[#121212] w-96"
+                            />
+                        </div>
+
+                        <!-- Campo para o e-mail -->
+                        <div class="">
+                            <label class="block text-sm font-medium text-gray-200">
+                                E-mail para notificação
+                            </label>
+                            <TextInput
+                                v-model="formData.email"
+                                type="email"
+                                placeholder="email@exemplo.com"
+                                class="bg-[#121212] w-96"
+                            />
+                        </div>
+
+                        <!-- Botões de ação -->
+                        <div class="mt-6 flex gap-5">
+                            <button
+                                type="submit"
+                                class="px-4 py-2 rounded-md bg-orange-600 text-white hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
+                            >
+                                Salvar
+                            </button>
+                            <button
+                                type="button"
+                                @click="close"
+                                class="px-4 py-2 rounded-md bg-gray-600 text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+                            >
+                                Fechar
+                            </button>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
-    </div>
     </transition>
 </template>
 
 <script setup>
-import InputError from "@/Components/InputError.vue";
-import InputLabel from "@/Components/InputLabel.vue";
+import { ref, computed } from "vue";
+import { usePage } from "@inertiajs/vue3";
 import TextInput from "@/Components/TextInput.vue";
-import formDomain from "./formDomain.vue";
-import { ref } from "vue";
+import { router } from '@inertiajs/vue3'
+
+const props = defineProps(["isVisible", "data"]);
 
 
-const props = defineProps(['isVisible'])
+const page = usePage();
+const user = computed(() => page.props.auth.user);
 
-const close = () =>{
-    props.isVisible = false
-}
 
+const formData = ref({
+    email: user.value.email,
+    anticipationDays: 15,
+    domain:'',
+    status:'',
+    expirationDate:''
+});
+
+const close = () => {
+    props.isVisible = false;
+};
+
+const handleSubmit = () => {
+    formData.value.domain = props.data.domainName;
+    formData.value.status = props.data.status;
+    formData.value.expirationDate = props.data.expirationDate;
+
+    try{
+        router.post('domain', formData.value)
+
+    }catch(e) {
+
+    }
+};
 </script>
 
-<style>
-/* we will explain what these classes do next! */
+<style scoped>
 .v-enter-active,
 .v-leave-active {
     transition: opacity 0.5s ease;
@@ -93,4 +124,6 @@ const close = () =>{
 .v-leave-to {
     opacity: 0;
 }
+
+
 </style>
