@@ -46,7 +46,7 @@ const showDetails = ref(false);
 const handleSubmit = async () => {
     buttonName.value = "Buscando ...";
     try {
-        const response = await axios.get(`/getDomainLook/${domain.value}`);
+        const response = await axios.get('/getDomainLook',{params:{domain:domain.value}});
         dataDomain.value = response.data;
         showDetails.value= true
     } catch (error) {

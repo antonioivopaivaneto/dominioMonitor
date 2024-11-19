@@ -10,7 +10,8 @@ class DomainController extends Controller
 {
     protected WhoisService $whois;
 
-    public function __construct(WhoisService $whois ) {
+    public function __construct(WhoisService $whois)
+    {
         $this->whois = $whois;
     }
     /**
@@ -18,7 +19,11 @@ class DomainController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Domain/index');
+        $dominios = auth()->user()->dominios;
+
+
+        return Inertia::render('Domain/index',[
+            'dominios' => $dominios]);
     }
 
     /**
@@ -26,7 +31,8 @@ class DomainController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Domain/create');
+
     }
 
     /**
@@ -34,7 +40,20 @@ class DomainController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        $data = $request->all();
+
+        $data['status'] = is_array($data['status']) ? $data['status'][0] : $data['status'];
+
+        $user = auth()->user();
+
+        $dominio = $user->dominios()->create([
+            'dominio' => $data['domain'],
+            'expiration' => $data['expirationDate'],
+            'status' => $data['status'],
+            'email' => $data['email'],
+        ]);
+
+        return redirect()->back();
     }
 
     /**
@@ -47,13 +66,15 @@ class DomainController extends Controller
     /**
      * Display the specified resource.
      */
-    public function getDomainLook($domain)
+    public function getDomainLook(Request $request)
     {
+        $domain = $request->query('domain');
 
-      $result =  $this->whois->lookup($domain);
+        $cleanDomain = preg_replace('/^https?:\/\//', '', rtrim($domain, '/'));
 
-      return response()->json( $result);
+        $result =  $this->whois->lookup($cleanDomain);
 
+        return response()->json($result);
     }
 
     /**

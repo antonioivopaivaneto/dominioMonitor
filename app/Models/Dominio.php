@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Dominio extends Model
 {
-    protected $fillable = ['dominio','expiration','user_id'];
+    protected $fillable = ['dominio','expiration','user_id','status','email'];
 
     public function user(){
         return $this->belongsTo(User::class);

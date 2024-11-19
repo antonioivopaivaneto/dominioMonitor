@@ -66,10 +66,11 @@ const showingNavigationDropdown = ref(false);
             </div>
             <!-- Navigation Links -->
             <div class="space-y-4">
-                <NavLink :href="route('domain.index')" :active="route().current('domain.index')"
+                <NavLink :href="route('domain.create')" :active="route().current('domain.index')"
                     class="block px-4 py-2 text-sm">
                     Dominios
                 </NavLink>
+
             </div>
             <!-- Navigation Links -->
             <div class="space-y-4">
