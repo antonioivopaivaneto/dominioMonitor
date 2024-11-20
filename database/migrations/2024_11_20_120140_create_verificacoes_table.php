@@ -11,15 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pages', function (Blueprint $table) {
+        Schema::create('verificacoes', function (Blueprint $table) {
             $table->id();
-            $table->string('url');
+            $table->foreignId('page_id')->constrained('pages')->onDelete('cascade');
             $table->string('status');
-            $table->string('email');
-            $table->integer('frequency');
-            $table->boolean('verification_enabled');
-            $table->timestamp('last_verification');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->text('detalhes')->nullable();
+            $table->timestamp('verificado_em');
             $table->timestamps();
         });
     }
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pages');
+        Schema::dropIfExists('verificacoes');
     }
 };
