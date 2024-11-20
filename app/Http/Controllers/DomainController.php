@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\WhoisService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class DomainController extends Controller
@@ -19,7 +20,9 @@ class DomainController extends Controller
      */
     public function index()
     {
-        $dominios = auth()->user()->dominios;
+        $user = Auth::user();
+
+        $dominios = $user->dominios;
 
 
         return Inertia::render('Domain/index',[
@@ -44,7 +47,8 @@ class DomainController extends Controller
 
         $data['status'] = is_array($data['status']) ? $data['status'][0] : $data['status'];
 
-        $user = auth()->user();
+
+        $user = Auth::user();
 
         $dominio = $user->dominios()->create([
             'dominio' => $data['domain'],
