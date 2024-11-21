@@ -21,7 +21,43 @@ import { Head } from '@inertiajs/vue3';
                     class="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-[#1d1d1d]"
                 >
                     <div class="p-6 text-gray-900 dark:text-gray-100">
-                        You're logged in!
+                        <div class="mx-auto grid grid-cols-3 gap-2">
+          <div class="bg-[#111] overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="md:p-6 p-2 text-gray-900">
+              <h3 class="text-amber-500 md:text-2xl sm:text-lg  font-semibold">
+                 Pendentes
+              </h3>
+              <p class="md:text-xl sm:text-sm mt-1">
+                <span class="mr-2 text-white  ">10 / 20</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="bg-[#111] overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="md:p-6 p-2 text-gray-900">
+              <h3 class="text-blue-500 md:text-2xl sm:text-lg  font-semibold text-nowrap">
+                 Em Progresso
+              </h3>
+              <p class="md:text-xl sm:text-sm mt-1">
+                <span class="mr-2 text-white ">20 / 20</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="bg-[#111] overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="md:p-6 p-2 text-gray-900">
+              <h3 class="text-green-500 md:text-2xl sm:text-lg  font-semibold">
+                 Completadas
+              </h3>
+              <p class="md:text-xl sm:text-sm mt-1">
+                <span class="mr-2 text-white ">20/ 20</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+
+
                     </div>
                 </div>
             </div>
