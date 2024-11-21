@@ -74,7 +74,7 @@ const showingNavigationDropdown = ref(false);
             </div>
             <!-- Navigation Links -->
             <div class="space-y-4">
-                <NavLink :href="route('dashboard')" :active="route().current('dashboard')"
+                <NavLink :href="route('pages.create')" :active="route().current('pages.create')"
                     class="block px-4 py-2 text-sm">
                     Paginas
                 </NavLink>

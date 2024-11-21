@@ -39,7 +39,7 @@ const show = ref(false);
                                     </h3>
 
                                     <div class="">  <Link
-      href="/domain"
+      href="/pages"
       class="inline-block px-4 py-2 text-white bg-purple-600 hover:bg-purple-700 rounded-lg transition duration-300"
     >
       Acompanhar Paginas

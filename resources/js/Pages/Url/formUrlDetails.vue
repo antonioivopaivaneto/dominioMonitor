@@ -23,7 +23,7 @@
                                 Verificar no intervalo em minutos
                             </label>
                             <TextInput
-                                v-model="formData.anticipationDays"
+                                v-model="formData.frequency"
                                 type="number"
                                 min="1"
                                 placeholder="Ex: 30 dias"
@@ -82,10 +82,9 @@ const user = computed(() => page.props.auth.user);
 
 const formData = ref({
     email: user.value.email,
-    anticipationDays: 15,
-    domain:'',
+    frequency: 15,
     status:'',
-    expirationDate:''
+    url:''
 });
 
 const close = () => {
@@ -93,12 +92,11 @@ const close = () => {
 };
 
 const handleSubmit = () => {
-    formData.value.domain = props.data.domainName;
     formData.value.status = props.data.status;
-    formData.value.expirationDate = props.data.expirationDate;
+    formData.value.url = props.data.url;
 
     try{
-        router.post('domain', formData.value)
+        router.post('/pages', formData.value)
 
     }catch(e) {
 

@@ -7,6 +7,7 @@ use App\Models\Dominio;
 use App\Models\Pages;
 use App\Models\Verificacoes;
 use Carbon\Carbon;
+use GuzzleHttp\Client;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -53,16 +54,23 @@ class PageService
     }
     public function PreCheckPage($url)
     {
+        $cleanUrl = preg_replace('#^(https?://)?(www\.)?#', '', $url);
+        $cleanUrl = rtrim($cleanUrl, '/');
 
-        $cleanUrl = preg_replace('#^(https?://)?(www\.)?#', '', $url); // Remove http://, https://, www.
-        $cleanUrl = rtrim($cleanUrl, '/'); // Remove a barra final "/"
+        $client = new Client([
+            'timeout' => 10,       // Timeout de 10 segundos
+            'verify' => false      // Desabilita a verificação de certificado SSL
+        ]);
 
         try {
-            $response = Http::timeout(10)->get($url);
-            $status = $response->successful() ? 'funcionando' : 'fora do ar';
-            $detalhes = $response->successful() ? null : $response->status();
 
-            return[
+            $response = $client->get($url);
+
+            $status = $response->getStatusCode() === 200 ? 'funcionando' : 'fora do ar';
+            $detalhes = null;
+
+
+            return [
                 'status' => $status,
                 'detalhes' => $detalhes,
                 'url' => $cleanUrl
@@ -72,14 +80,12 @@ class PageService
             $status = 'fora do ar';
             $detalhes = $e->getMessage();
 
-            return[
+            return [
                 'status' => $status,
                 'detalhes' => $detalhes,
-                '$url' => $cleanUrl
+                'url' => $cleanUrl
 
             ];
         }
-
-
     }
 }
