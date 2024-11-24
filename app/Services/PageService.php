@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Mail\DomainExpirationWarningMail;
+use App\Mail\PageDownAlertMail;
 use App\Models\Dominio;
 use App\Models\Pages;
 use App\Models\Verificacoes;
@@ -22,7 +23,7 @@ class PageService
     public function checkPage(Pages $pagina)
     {
 
-        DB::transaction();
+        DB::beginTransaction();
 
         try {
             $response = Http::timeout(10)->get($pagina->url);
@@ -45,6 +46,11 @@ class PageService
                 'status' => $status,
                 'last_verification' => now()
             ]);
+
+
+
+
+
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
@@ -52,6 +58,39 @@ class PageService
             throw $e;
         }
     }
+
+    public function verificarTodasPaginas(){
+
+        $paginas = Pages::where('verification_enabled', true)->get();
+
+        if($paginas->isEmpty()){
+
+            return false;
+
+        }
+
+
+        foreach ($paginas as $pagina){
+            $this->checkPage($pagina);
+        }
+
+        if($pagina->status ==='fora do ar'){
+            $this->sendPageDownAlert($pagina);
+        }
+
+
+    }
+
+    public function sendPageDownAlert(Pages $pagina)
+    {
+        Mail::to($pagina->email)
+        ->send(new PageDownAlertMail($pagina));
+
+    }
+
+
+
+
     public function PreCheckPage($url)
     {
         $cleanUrl = preg_replace('#^(https?://)?(www\.)?#', '', $url);
