@@ -106,7 +106,7 @@ const handleSubmit = () => {
     formData.value.expirationDate = props.data.expirationDate;
 
     try{
-        router.post('domain', formData.value)
+        router.post('/domain', formData.value)
 
     }catch(e) {
 

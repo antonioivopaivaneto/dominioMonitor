@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('dominio');
             $table->string('status');
             $table->string('email');
+            $table->integer('dias_antecendencia');
+            $table->boolean('notificado')->default(false);
             $table->date('expiration')->nullable();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();

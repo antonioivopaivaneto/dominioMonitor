@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\WhoisService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -45,14 +46,17 @@ class DomainController extends Controller
     {
         $data = $request->all();
 
+
         $data['status'] = is_array($data['status']) ? $data['status'][0] : $data['status'];
 
+        $data['expirationDate'] = Carbon::createFromFormat('d/m/Y',$data['expirationDate'])->format('Y-m-d');
 
         $user = Auth::user();
 
         $dominio = $user->dominios()->create([
             'dominio' => $data['domain'],
             'expiration' => $data['expirationDate'],
+            'dias_antecendencia' => $data['anticipationDays'],
             'status' => $data['status'],
             'email' => $data['email'],
         ]);

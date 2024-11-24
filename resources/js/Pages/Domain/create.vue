@@ -9,7 +9,6 @@ const showDetails = ref(false);
 const show = ref(false);
 </script>
 
-
 <template>
     <Head title="Dashboard" />
 
@@ -32,24 +31,27 @@ const show = ref(false);
                             <div
                                 class="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-[#1d1d1d]"
                             >
-                                <div class="text-gray-900 dark:text-gray-100 flex justify-between">
+                                <div
+                                    class="text-gray-900 dark:text-gray-100 flex justify-between"
+                                >
                                     <h3 class="text-lg font-semibold mb-4">
                                         Insira seu Dominio e seja notificado
                                         sobre seu status
                                     </h3>
 
-                                    <div class="">  <Link
-      href="/domain"
-      class="inline-block px-4 py-2 text-white bg-purple-600 hover:bg-purple-700 rounded-lg transition duration-300"
-    >
-      Acompanhar Domínios
-    </Link></div>
+                                    <div class="">
+                                        <Link
+                                            href="/domain"
+                                            class="inline-block px-4 py-2 text-white bg-purple-600 hover:bg-purple-700 rounded-lg transition duration-300"
+                                        >
+                                            Acompanhar Domínios
+                                        </Link>
+                                    </div>
                                 </div>
 
-                                <form-domain @toggleDetails="showDetails =true" />
-
-
-
+                                <form-domain
+                                    @toggleDetails="showDetails = true"
+                                />
                             </div>
                         </div>
                     </div>
