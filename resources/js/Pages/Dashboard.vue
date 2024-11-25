@@ -1,6 +1,10 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
+
+
+defineProps({ pages: Number,domains:Number,verifyWithErrors:Number });
+
 </script>
 
 <template>
@@ -25,10 +29,10 @@ import { Head } from '@inertiajs/vue3';
           <div class="bg-[#111] overflow-hidden shadow-sm sm:rounded-lg">
             <div class="md:p-6 p-2 text-gray-900">
               <h3 class="text-amber-500 md:text-2xl sm:text-lg  font-semibold">
-                 Pendentes
+                 Dominios
               </h3>
               <p class="md:text-xl sm:text-sm mt-1">
-                <span class="mr-2 text-white  ">10 / 20</span>
+                <span class="mr-2 text-white  ">{{ domains }}</span>
               </p>
             </div>
           </div>
@@ -36,10 +40,10 @@ import { Head } from '@inertiajs/vue3';
           <div class="bg-[#111] overflow-hidden shadow-sm sm:rounded-lg">
             <div class="md:p-6 p-2 text-gray-900">
               <h3 class="text-blue-500 md:text-2xl sm:text-lg  font-semibold text-nowrap">
-                 Em Progresso
+                 Paginas
               </h3>
               <p class="md:text-xl sm:text-sm mt-1">
-                <span class="mr-2 text-white ">20 / 20</span>
+                <span class="mr-2 text-white ">{{pages  }}</span>
               </p>
             </div>
           </div>
@@ -47,10 +51,10 @@ import { Head } from '@inertiajs/vue3';
           <div class="bg-[#111] overflow-hidden shadow-sm sm:rounded-lg">
             <div class="md:p-6 p-2 text-gray-900">
               <h3 class="text-green-500 md:text-2xl sm:text-lg  font-semibold">
-                 Completadas
+                 Paginas com Erros
               </h3>
               <p class="md:text-xl sm:text-sm mt-1">
-                <span class="mr-2 text-white ">20/ 20</span>
+                <span class="mr-2 text-white ">{{ verifyWithErrors }}</span>
               </p>
             </div>
           </div>

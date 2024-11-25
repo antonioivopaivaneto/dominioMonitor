@@ -13,6 +13,8 @@ const showingNavigationDropdown = ref(false);
 <template>
     <div class="flex flex-col h-screen bg-gray-500  dark:bg-[#000] fundo">
         <div class="  rounded-md mx-5 dark:bg-[#1d1d1d] p-6 mt-5">
+
+
                <!-- Settings Dropdown -->
                <div class="mt-auto px-4 py-2 float-end">
                 <Dropdown align="right" width="48" class="bg-[#1d1d1d]">
@@ -41,11 +43,15 @@ const showingNavigationDropdown = ref(false);
                     </template>
                 </Dropdown>
             </div>
-
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1);transform: ;msFilter:;"><path d="M12 22a2.98 2.98 0 0 0 2.818-2H9.182A2.98 2.98 0 0 0 12 22zm7-7.414V10c0-3.217-2.185-5.927-5.145-6.742C13.562 2.52 12.846 2 12 2s-1.562.52-1.855 1.258C7.185 4.074 5 6.783 5 10v4.586l-1.707 1.707A.996.996 0 0 0 3 17v1a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-1a.996.996 0 0 0-.293-.707L19 14.586z"></path></svg>
+            </div>
 
         </div>
 
+
         <div class="flex bg-[#000]">
+
 
         <!-- Sidebar -->
         <div class="w-64 bg-blue-800 text-white  dark:bg-[#1d1d1d] dark:text-gray-200 mx-5 rounded-lg p-2 mt-12 h-96">
