@@ -17,12 +17,12 @@ const showingNavigationDropdown = ref(false);
 
                <!-- Settings Dropdown -->
                <div class="mt-auto px-4 py-2 float-end">
-                <Dropdown align="right" width="48" class="bg-[#1d1d1d]">
+                <Dropdown align="right" width="48" class="bg-transparent">
                     <template #trigger>
                         <span class="inline-flex rounded-md">
                             <button type="button"
-                                class="inline-flex items-center rounded-md border border-transparent bg-[#121212] px-3 py-2 text-sm font-medium leading-4 text-gray-200 transition duration-150 ease-in-out hover:text-gray-400 focus:outline-none dark:bg-[#121212] dark:text-gray-400 dark:hover:text-gray-300">
-                                {{ $page.props.auth.user.name }}
+                                class="inline-flex items-center rounded-md border border-transparent bg-transparent px-3 py-2 text-sm font-medium leading-4 text-gray-200 transition duration-150 ease-in-out hover:text-gray-400 focus:outline-none  dark:text-gray-400 dark:hover:text-gray-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1);transform: ;msFilter:;"><path d="M12 2C6.579 2 2 6.579 2 12s4.579 10 10 10 10-4.579 10-10S17.421 2 12 2zm0 5c1.727 0 3 1.272 3 3s-1.273 3-3 3c-1.726 0-3-1.272-3-3s1.274-3 3-3zm-5.106 9.772c.897-1.32 2.393-2.2 4.106-2.2h2c1.714 0 3.209.88 4.106 2.2C15.828 18.14 14.015 19 12 19s-3.828-.86-5.106-2.228z"></path></svg>
                                 <svg class="-me-0.5 ms-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                                     fill="currentColor">
                                     <path fill-rule="evenodd"
@@ -43,7 +43,8 @@ const showingNavigationDropdown = ref(false);
                     </template>
                 </Dropdown>
             </div>
-            <div>
+            <div class=" ">
+                <b class="text-blue-500 text-xs  font-black relative -bottom-7 left-5  rounded-full font-extrabold   ">1</b>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1);transform: ;msFilter:;"><path d="M12 22a2.98 2.98 0 0 0 2.818-2H9.182A2.98 2.98 0 0 0 12 22zm7-7.414V10c0-3.217-2.185-5.927-5.145-6.742C13.562 2.52 12.846 2 12 2s-1.562.52-1.855 1.258C7.185 4.074 5 6.783 5 10v4.586l-1.707 1.707A.996.996 0 0 0 3 17v1a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-1a.996.996 0 0 0-.293-.707L19 14.586z"></path></svg>
             </div>
 

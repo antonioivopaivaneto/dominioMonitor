@@ -9,4 +9,9 @@ class Verificacoes extends Model
     protected $fillable = ['page_id','status','detalhes','verificado_em'];
 
 
+    protected $casts = [
+        'verificado_em' => 'datetime',
+    ];
+
+
 }

@@ -15,11 +15,17 @@ class DashboardController extends Controller
         $this->service = $service;
     }
 public function index(){
-    $pages = $this->service->CountPage();
+    $pages = $this->service->countPagesWithoutErrors();
     $domains = $this->service->CountDomain();
-    $verifyWithErrors = $this->service->VerifyWithErros();
+    $verifyWithErrors = $this->service->countPagesWithErrors();
+    $lastVerify = $this->service->getLastVerify();
 
-    return Inertia::render('Dashboard',compact('pages','domains','verifyWithErrors'));
+    return Inertia::render('Dashboard',compact(
+        'pages',
+        'domains',
+        'verifyWithErrors',
+        'lastVerify'
+    ));
 }
 
 }
