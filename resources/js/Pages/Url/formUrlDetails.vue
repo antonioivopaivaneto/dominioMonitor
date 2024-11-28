@@ -5,8 +5,9 @@
             <!-- Exibindo as informações do domínio -->
             <div class="bg-[#111] p-2 rounded-md mt-10 text-gray-400 flex flex-col">
                 <div class="">Pagina: {{ data.url }}</div>
+                <div class="">tempo: {{ data.response_time }}</div>
                 <div class="">Status: {{ data.status }}</div>
-                <div class="">Detalhes: {{ data.detalhes }}</div>
+                <div class="">Detalhes: {{ data.detalhes ?? 'Sem detalhes' }}</div>
             </div>
 
             <div class="mt-6">

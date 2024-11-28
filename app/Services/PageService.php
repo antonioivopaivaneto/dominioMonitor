@@ -103,7 +103,20 @@ class PageService
 
         try {
 
-            $response = $client->get($url);
+            $response = $client->get($url, [
+                'on_stats' => function (\GuzzleHttp\TransferStats $stats) use (&$responseTime) {
+                    // Captura o tempo de resposta da requisição
+                    $responseTime = round($stats->getTransferTime(), 3);
+
+                    if ($responseTime < 1) {
+                        $responseTime = round($responseTime * 1000, 0) . ' ms';
+                    } elseif ($responseTime >= 1 && $responseTime < 60) {
+                        $responseTime = round($responseTime, 2) . ' s';
+                    } else {
+                        $responseTime = round($responseTime / 60, 2) . ' min';
+                    }
+                }
+            ]);
 
             $status = $response->getStatusCode() === 200 ? 'funcionando' : 'fora do ar';
             $detalhes = null;
@@ -112,7 +125,8 @@ class PageService
             return [
                 'status' => $status,
                 'detalhes' => $detalhes,
-                'url' => $cleanUrl
+                'url' => $cleanUrl,
+                'response_time' => $responseTime // Retorna o tempo de resposta
 
             ];
         } catch (\Exception $e) {
