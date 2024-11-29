@@ -26,8 +26,9 @@ class PageController extends Controller
         $pages = $user->pages;
 
 
-        return Inertia::render('Url/index',[
-            'pages' => $pages]);
+        return Inertia::render('Url/index', [
+            'pages' => $pages
+        ]);
     }
 
     /**
@@ -70,6 +71,20 @@ class PageController extends Controller
     public function show(string $id)
     {
         //
+    }
+
+    /**
+     * set enable_verificatoin for Page
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function setEnablePageVerify(Request $request)
+    {
+
+        $this->pageService->toogleCheckPage($request->id);
+
+        return response()->json('sucess');
     }
     /**
      * Display the specified resource.

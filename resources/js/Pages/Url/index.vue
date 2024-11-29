@@ -4,27 +4,29 @@ import formDomainDetails from "@/Pages/Domain/formDomainDetails.vue";
 import formDomain from "@/Pages/Domain/formDomain.vue";
 import { Head, Link } from "@inertiajs/vue3";
 import { ref } from "vue";
+import axios from "axios";
+import { useToast } from "vue-toastification";
+
+const toast = useToast();
 
 const showDetails = ref(false);
 const show = ref(false);
 
 defineProps({ pages: Object });
 
-const domain = ref([
-    { id: 1, name: "example.com", status: "Active", expiration: "2025-04-01" },
-    {
-        id: 2,
-        name: "mywebsite.net",
-        status: "Pending",
-        expiration: "2024-12-15",
-    },
-    {
-        id: 3,
-        name: "safetyfacilities.com.br",
-        status: "Expired",
-        expiration: "2023-11-01",
-    },
-]);
+
+const handleSubmit = async (id) => {
+    try {
+        const response = await axios.get('/setEnablePageVerify',{params:{id:id}});
+        console.log('aqui', response);
+
+       toast.success('Alterado com Sucesso')
+    } catch (error) {
+        console.error("Erro ao buscar informações do domínio:", error);
+    }
+
+};
+
 </script>
 
 <template>
@@ -59,7 +61,7 @@ const domain = ref([
 
                                     <Link
                                         href="/pages/create"
-                                        class="inline-block px-4 py-2 text-white bg-purple-600 hover:bg-purple-700 rounded-lg transition duration-300"
+                                        class="inline-block px-4 py-2 text-white bg-green-600 hover:bg-green-700 rounded-lg transition duration-300"
                                     >
                                         Adicionar Pagina
                                     </Link>
@@ -154,6 +156,7 @@ const domain = ref([
                                                         type="checkbox"
                                                         class="sr-only peer"
                                                         :checked="page.verification_enabled"
+                                                        @click="handleSubmit(page.id)"
                                                     />
 
                                                     <div

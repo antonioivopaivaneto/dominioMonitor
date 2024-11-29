@@ -24,11 +24,15 @@ class PageService
     {
 
         DB::beginTransaction();
+        $tempo ='';
 
         try {
-            $response = Http::timeout(10)->get($pagina->url);
-            $status = $response->successful() ? 'funcionando' : 'fora do ar';
-            $detalhes = $response->successful() ? null : $response->status();
+            $response = $this->getResponsePage($pagina->url);
+
+            $status = $response['response']->getStatusCode() === 200 ? 'funcionando' : 'fora do ar';
+            $detalhes = null;
+            $tempo = $response['responseTime'];
+
         } catch (\Exception $e) {
             $status = 'fora do ar';
             $detalhes = $e->getMessage();
@@ -38,7 +42,7 @@ class PageService
             Verificacoes::create([
                 'page_id' => $pagina->id,
                 'status' => $status,
-                'detalhes' => $detalhes,
+                'detalhes' => $detalhes . 'Tempo: '.$tempo ,
                 'verificado_em' => now(),
             ]);
 
@@ -58,6 +62,8 @@ class PageService
             throw $e;
         }
     }
+
+
 
     public function verificarTodasPaginas(){
 
@@ -81,6 +87,7 @@ class PageService
 
     }
 
+
     public function sendPageDownAlert(Pages $pagina)
     {
         Mail::to($pagina->email)
@@ -88,37 +95,52 @@ class PageService
 
     }
 
+    public function toogleCheckPage($id){
+        $page = Pages::find($id);
+        $page->verification_enabled = !$page->verification_enabled;
+        $page->save();
 
+    }
 
-
-    public function PreCheckPage($url)
-    {
-        $cleanUrl = preg_replace('#^(https?://)?(www\.)?#', '', $url);
-        $cleanUrl = rtrim($cleanUrl, '/');
+    public function getResponsePage($url){
 
         $client = new Client([
             'timeout' => 10,       // Timeout de 10 segundos
             'verify' => false      // Desabilita a verificação de certificado SSL
         ]);
 
+        $response = $client->get($url, [
+            'on_stats' => function (\GuzzleHttp\TransferStats $stats) use (&$responseTime) {
+                // Captura o tempo de resposta da requisição
+                $responseTime = round($stats->getTransferTime(), 3);
+
+                if ($responseTime < 1) {
+                    $responseTime = round($responseTime * 1000, 0) . ' ms';
+                } elseif ($responseTime >= 1 && $responseTime < 60) {
+                    $responseTime = round($responseTime, 2) . ' s';
+                } else {
+                    $responseTime = round($responseTime / 60, 2) . ' min';
+                }
+            }
+        ]);
+
+        return ['response'=> $response, 'responseTime'=> $responseTime];
+
+    }
+
+    public function PreCheckPage($url)
+    {
+        $cleanUrl = preg_replace('#^(https?://)?(www\.)?#', '', $url);
+        $cleanUrl = rtrim($cleanUrl, '/');
+
+
+
         try {
 
-            $response = $client->get($url, [
-                'on_stats' => function (\GuzzleHttp\TransferStats $stats) use (&$responseTime) {
-                    // Captura o tempo de resposta da requisição
-                    $responseTime = round($stats->getTransferTime(), 3);
+            $response =  $this->getResponsePage($url);
 
-                    if ($responseTime < 1) {
-                        $responseTime = round($responseTime * 1000, 0) . ' ms';
-                    } elseif ($responseTime >= 1 && $responseTime < 60) {
-                        $responseTime = round($responseTime, 2) . ' s';
-                    } else {
-                        $responseTime = round($responseTime / 60, 2) . ' min';
-                    }
-                }
-            ]);
 
-            $status = $response->getStatusCode() === 200 ? 'funcionando' : 'fora do ar';
+            $status = $response['response']->getStatusCode() === 200 ? 'funcionando' : 'fora do ar';
             $detalhes = null;
 
 
@@ -126,7 +148,7 @@ class PageService
                 'status' => $status,
                 'detalhes' => $detalhes,
                 'url' => $cleanUrl,
-                'response_time' => $responseTime // Retorna o tempo de resposta
+                'response_time' => $response['responseTime'] // Retorna o tempo de resposta
 
             ];
         } catch (\Exception $e) {

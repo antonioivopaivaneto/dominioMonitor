@@ -31,5 +31,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/getDomainLook', [DomainController::class, 'getDomainLook']);
 });
 Route::get('/getStatusUrl', [PageController::class, 'getStatusUrl']);
+Route::get('/setEnablePageVerify', [PageController::class, 'setEnablePageVerify']);
 
 require __DIR__ . '/auth.php';

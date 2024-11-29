@@ -16,5 +16,6 @@ class Pages extends Model
     public function verificacoes(){
         return $this->hasMany(Verificacoes::class);
     }
+    
 
 }

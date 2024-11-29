@@ -49,7 +49,7 @@ const domain = ref([
 
                                     <Link
       href="/domain/create"
-      class="inline-block px-4 py-2 text-white bg-purple-600 hover:bg-purple-700 rounded-lg transition duration-300"
+      class="inline-block px-4 py-2 text-white bg-green-600 hover:bg-green-700 rounded-lg transition duration-300"
     >
       Adicionar Domínio
     </Link>
