@@ -3,7 +3,7 @@
         <div class="" v-if="isVisible">
 
             <!-- Exibindo as informações do domínio -->
-            <div class="bg-[#111] p-2 rounded-md mt-10 text-gray-400 flex flex-col">
+            <div class="bg-[#e1e1e1] p-2 rounded-md mt-10 text-gray-900 flex flex-col">
                 <div class="">Pagina: {{ data.url }}</div>
                 <div class="">tempo: {{ data.response_time }}</div>
                 <div class="">Status: {{ data.status }}</div>
@@ -11,7 +11,7 @@
             </div>
 
             <div class="mt-6">
-                <h4 class="text-lg font-semibold text-gray-200 mb-4">
+                <h4 class="text-lg font-semibold text-gray-900 mb-4">
                     Configuração de Notificação
                 </h4>
                 <form @submit.prevent="handleSubmit">
@@ -20,7 +20,7 @@
 
                         <!-- Campo para o número de dias de antecedência -->
                         <div class="">
-                            <label class="block text-sm font-medium text-gray-200">
+                            <label class="block text-sm font-medium text-gray-900">
                                 Verificar no intervalo em minutos
                             </label>
                             <TextInput
@@ -34,7 +34,7 @@
 
                         <!-- Campo para o e-mail -->
                         <div class="">
-                            <label class="block text-sm font-medium text-gray-200">
+                            <label class="block text-sm font-medium text-gray-900">
                                 E-mail para notificação
                             </label>
                             <TextInput

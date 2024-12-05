@@ -24,54 +24,54 @@ const closeModal = () => {
     <AuthenticatedLayout>
         <template #header>
             <h2
-                class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200"
+                class="text-xl font-semibold leading-tight text-gray-800"
             >
                 Dashboard
             </h2>
         </template>
 
-        <div class="py-12">
+        <div class="py-12 bg-gray-100">
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div
-                    class="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-[#1d1d1d]"
+                    class="overflow-hidden bg-white shadow-sm sm:rounded-lg"
                 >
-                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <div class="p-6 text-gray-800">
                         <div class="mx-auto grid grid-cols-3 gap-2">
-                            <div class="bg-[#111] overflow-hidden shadow-sm sm:rounded-lg">
-                                <div class="md:p-6 p-2 text-gray-900">
+                            <div class="bg-gray-200 overflow-hidden shadow-sm sm:rounded-lg">
+                                <div class="md:p-6 p-2 text-gray-800">
                                     <h3
-                                        class="text-amber-500 md:text-2xl sm:text-lg font-semibold"
+                                        class="text-amber-600 md:text-2xl sm:text-lg font-semibold"
                                     >
                                         Domínios Sob Alerta
                                     </h3>
                                     <p class="md:text-xl sm:text-sm mt-1">
-                                        <span class="mr-2 text-white">{{ domains }}</span>
+                                        <span class="mr-2 text-gray-900">{{ domains }}</span>
                                     </p>
                                 </div>
                             </div>
 
-                            <div class="bg-[#111] overflow-hidden shadow-sm sm:rounded-lg">
-                                <div class="md:p-6 p-2 text-gray-900">
+                            <div class="bg-gray-200 overflow-hidden shadow-sm sm:rounded-lg">
+                                <div class="md:p-6 p-2 text-gray-800">
                                     <h3
-                                        class="text-green-500 md:text-2xl sm:text-lg font-semibold"
+                                        class="text-green-600 md:text-2xl sm:text-lg font-semibold"
                                     >
                                         Páginas Sem Problemas
                                     </h3>
                                     <p class="md:text-xl sm:text-sm mt-1">
-                                        <span class="mr-2 text-white">{{ pages }}</span>
+                                        <span class="mr-2 text-gray-900">{{ pages }}</span>
                                     </p>
                                 </div>
                             </div>
 
-                            <div class="bg-[#111] overflow-hidden shadow-sm sm:rounded-lg">
-                                <div class="md:p-6 p-2 text-gray-900">
+                            <div class="bg-gray-200 overflow-hidden shadow-sm sm:rounded-lg">
+                                <div class="md:p-6 p-2 text-gray-800">
                                     <h3
-                                        class="text-red-500 md:text-2xl sm:text-lg font-semibold"
+                                        class="text-red-600 md:text-2xl sm:text-lg font-semibold"
                                     >
                                         Páginas com Problemas
                                     </h3>
                                     <p class="md:text-xl sm:text-sm mt-1">
-                                        <span class="mr-2 text-white">{{ verifyWithErrors }}</span>
+                                        <span class="mr-2 text-gray-900">{{ verifyWithErrors }}</span>
                                     </p>
                                 </div>
                             </div>
@@ -85,7 +85,7 @@ const closeModal = () => {
 
                 <!-- Propaganda Modal -->
                 <div
-                    class="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-[#1d1d1d] mt-5"
+                    class="overflow-hidden bg-white shadow-sm sm:rounded-lg mt-5"
                     v-if="propaganda"
                 >
                     <div
@@ -97,21 +97,21 @@ const closeModal = () => {
                             width="24"
                             height="24"
                             viewBox="0 0 24 24"
-                            style="fill: rgba(255, 255, 255, 0.6);"
+                            style="fill: rgba(0, 0, 0, 0.6);"
                         >
                             <path
                                 d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"
                             ></path>
                         </svg>
                     </div>
-                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <div class="p-6 text-gray-800">
                         <h2 class="text-2xl font-bold text-blue-500 mb-4">
                             Transforme sua Ideia em um Site Incrível!
                         </h2>
-                        <p class="text-lg text-gray-700 dark:text-gray-300 mb-3">
+                        <p class="text-lg text-gray-600 mb-3">
                             Você sonha com um site moderno, funcional e que impressione seus visitantes? Nós podemos ajudar!
                         </p>
-                        <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 mb-4">
+                        <ul class="list-disc list-inside text-gray-600 mb-4">
                             <li>Sites personalizados que destacam sua marca.</li>
                             <li>Design responsivo para dispositivos móveis.</li>
                             <li>Otimização para velocidade e SEO.</li>

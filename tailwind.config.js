@@ -10,6 +10,7 @@ export default {
         './resources/js/**/*.vue',
     ],
 
+
     theme: {
         extend: {
             fontFamily: {

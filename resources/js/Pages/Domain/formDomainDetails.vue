@@ -3,21 +3,21 @@
         <div class="" v-if="isVisible">
 
             <!-- Exibindo as informações do domínio -->
-            <div class="bg-[#111] p-2 rounded-md mt-10 text-gray-400 flex flex-col">
+            <div class="bg-[#d5d4d4] p-2 rounded-md mt-10 text-gray-900 flex flex-col">
                 <div class="">Domain: {{ data.domainName }}</div>
                 <div class="">Responsável: {{ data.responsible }}</div>
                 <div class="">Vencimento: {{ data.expirationDate }}</div>
             </div>
 
             <div class="mt-6">
-                <h4 class="text-lg font-semibold text-gray-200 mb-4">
+                <h4 class="text-lg font-semibold text-gray-900 mb-4">
                     Configuração de Notificação
                 </h4>
                 <form @submit.prevent="handleSubmit">
                     <div class="flex flex-col gap-4">
                         <!-- Campo para o responsável -->
                         <div class="">
-                            <label class="block text-sm font-medium text-gray-200">Responsável</label>
+                            <label class="block text-sm font-medium text-gray-900">Responsável</label>
                             <TextInput
                                 v-model="data.responsible"
                                 placeholder="Nome do Responsável"
@@ -27,7 +27,7 @@
 
                         <!-- Campo para o número de dias de antecedência -->
                         <div class="">
-                            <label class="block text-sm font-medium text-gray-200">
+                            <label class="block text-sm font-medium text-gray-900">
                                 Avisar quantos dias de antecedência
                             </label>
                             <TextInput
@@ -41,7 +41,7 @@
 
                         <!-- Campo para o e-mail -->
                         <div class="">
-                            <label class="block text-sm font-medium text-gray-200">
+                            <label class="block text-sm font-medium text-gray-900">
                                 E-mail para notificação
                             </label>
                             <TextInput

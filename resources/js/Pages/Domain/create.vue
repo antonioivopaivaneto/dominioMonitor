@@ -24,15 +24,15 @@ const show = ref(false);
         <div class="py-12">
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div
-                    class="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-[#1d1d1d]"
+                    class="overflow-hidden bg-white shadow-sm sm:rounded-lg "
                 >
                     <div class="py-12">
                         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
                             <div
-                                class="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-[#1d1d1d]"
+                                class="overflow-hidden bg-white shadow-sm sm:rounded-lg "
                             >
                                 <div
-                                    class="text-gray-900 dark:text-gray-100 flex justify-between"
+                                    class="text-gray-900 dark:text-gray-900 flex justify-between"
                                 >
                                     <h3 class="text-lg font-semibold mb-4">
                                         Insira seu Dominio e seja notificado
