@@ -33,8 +33,8 @@ const submit = () => {
     <GuestLayout>
         <Head title="Bem-vindo ao Sistema de Monitoramento" />
 
-        <div class="min-h-screen flex items-center justify-center bg-gray-100">
-            <div class="bg-white shadow-lg rounded-lg p-10 w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class=" max-w-7xl min-h-screen flex items-center justify-center overflow-hidden">
+                        <div class="bg-white shadow-lg rounded-lg p-10 w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-8">
                 <!-- Seção de Boas-Vindas -->
                 <div class="flex flex-col justify-center">
                     <h1 class="text-3xl md:text-4xl font-bold text-blue-600 mb-4">
