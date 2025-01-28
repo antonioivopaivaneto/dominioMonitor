@@ -8,7 +8,7 @@
                     placeholder="domain.com.br"
                     class="bg-[#121212] w-96"
                 />
-                <InputError />
+                <InputError :message="fieldError" />
             </div>
             <div class="mt-4">
                 <button
@@ -42,6 +42,8 @@ const buttonName = ref("Buscar");
 const domain = ref("");
 const dataDomain = ref("");
 const showDetails = ref(false);
+const fieldError = ref("");
+
 
 const handleSubmit = async () => {
     buttonName.value = "Buscando ...";
@@ -51,6 +53,10 @@ const handleSubmit = async () => {
         showDetails.value= true
     } catch (error) {
         console.error("Erro ao buscar informações do domínio:", error);
+
+            fieldError.value = "Erro ao buscar informações do domínio: Verifique se voce digitou corretamente";
+
+
     }
     buttonName.value = "Buscar";
 

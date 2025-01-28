@@ -105,27 +105,28 @@ const closeModal = () => {
                         </svg>
                     </div>
                     <div class="p-6 text-gray-800">
-                        <h2 class="text-2xl font-bold text-blue-500 mb-4">
-                            Transforme sua Ideia em um Site Incrível!
-                        </h2>
-                        <p class="text-lg text-gray-600 mb-3">
-                            Você sonha com um site moderno, funcional e que impressione seus visitantes? Nós podemos ajudar!
-                        </p>
-                        <ul class="list-disc list-inside text-gray-600 mb-4">
-                            <li>Sites personalizados que destacam sua marca.</li>
-                            <li>Design responsivo para dispositivos móveis.</li>
-                            <li>Otimização para velocidade e SEO.</li>
-                            <li>Integração com redes sociais e ferramentas online.</li>
-                        </ul>
-                        <div class="text-center mt-6">
-                            <a
-                                href="#"
-                                class="px-6 py-3 text-white bg-blue-500 hover:bg-blue-700 rounded-lg font-semibold text-lg"
-                            >
-                                Solicite um orçamento agora!
-                            </a>
-                        </div>
-                    </div>
+    <h2 class="text-2xl font-bold text-blue-500 mb-4">
+        Monitoramento Completo para Seu Site e Domínio!
+    </h2>
+    <p class="text-lg text-gray-600 mb-3">
+        Preocupe-se menos e mantenha seu site sempre ativo e funcionando perfeitamente. Receba alertas em tempo real sobre qualquer problema diretamente no WhatsApp!
+    </p>
+    <ul class="list-disc list-inside text-gray-600 mb-4">
+        <li>Monitoramento 24/7 de sites e domínios.</li>
+        <li>Notificações instantâneas no WhatsApp sobre instabilidades ou vencimentos.</li>
+        <li>Verificação automática de certificados SSL e status do domínio.</li>
+        <li>Relatórios detalhados de desempenho e uptime.</li>
+    </ul>
+    <div class="text-center mt-6">
+        <a
+            href="https://w.app/vsmw2u"
+            class="px-6 py-3 text-white bg-blue-500 hover:bg-blue-700 rounded-lg font-semibold text-lg"
+        >
+            Saiba Mais e Comece Agora!
+        </a>
+    </div>
+</div>
+
                 </div>
             </div>
         </div>

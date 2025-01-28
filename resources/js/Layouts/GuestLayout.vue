@@ -4,20 +4,26 @@ import { Link } from '@inertiajs/vue3';
 </script>
 
 <template>
-    <div
-        style="background-image: linear-gradient(transparent, transparent), linear-gradient(287.15deg, #fafbfc, #deebff 8.06%, #b3d4ff 35.45%, #deebff 77.6%, #fafbfc)"
-        class="min-h-screen flex flex-col items-center pt-6 sm:justify-center sm:pt-0 overflow-hidden"
-    >
-        <!-- Logo -->
-        <div class="w-full bg-white">
-            <Link href="/">
-                <ApplicationLogo class="h-10 w-10 fill-current text-gray-500 p-2" />
+    <div class="min-h-screen flex flex-col justify-between bg-gradient-to-r from-blue-500 to-blue-700 text-white">
+
+        <!-- Conteúdo da página -->
+        <div class="flex-1 flex items-center justify-center">
+            <div class="w-full max-w-4xl p-6">
+                <slot />
+            </div>
+        </div>
+
+        <!-- Rodapé (opcional) -->
+        <div class="p-4 text-sm text-center text-gray-300">
+            <p>&copy; {{ new Date().getFullYear() }} Web Moni. Todos os direitos reservados.</p>
+            <Link href="#" class="text-blue-300 hover:underline">
+                Política de Privacidade
+            </Link>
+            <span class="mx-2">|</span>
+            <Link href="#" class="text-blue-300 hover:underline">
+                Termos de Serviço
             </Link>
         </div>
 
-        <!-- Conteúdo -->
-        <div class="flex-1 flex items-center justify-center w-full">
-            <slot />
-        </div>
     </div>
 </template>
