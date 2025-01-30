@@ -15,7 +15,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard',[DashboardController::class,'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::post('/checkout', [PaymentController::class, 'checkout'])->name('checkout');
+Route::get('/checkout', [PaymentController::class, 'checkout'])->name('checkout');
 Route::get('/payment/success', [PaymentController::class, 'success'])->name('payment.success');
 Route::get('/payment/cancel', [PaymentController::class, 'cancel'])->name('payment.cancel');
 

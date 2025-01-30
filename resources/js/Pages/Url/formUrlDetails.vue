@@ -1,13 +1,16 @@
 <template>
     <transition>
         <div class="" v-if="isVisible">
-
             <!-- Exibindo as informações do domínio -->
-            <div class="bg-[#e1e1e1] p-2 rounded-md mt-10 text-gray-900 flex flex-col">
+            <div
+                class="bg-[#e1e1e1] p-2 rounded-md mt-10 text-gray-900 flex flex-col"
+            >
                 <div class="">Pagina: {{ data.url }}</div>
                 <div class="">tempo: {{ data.response_time }}</div>
                 <div class="">Status: {{ data.status }}</div>
-                <div class="">Detalhes: {{ data.detalhes ?? 'Sem detalhes' }}</div>
+                <div class="">
+                    Detalhes: {{ data.detalhes ?? "Sem detalhes" }}
+                </div>
             </div>
 
             <div class="mt-6">
@@ -16,11 +19,11 @@
                 </h4>
                 <form @submit.prevent="handleSubmit">
                     <div class="flex flex-col gap-4">
-
-
                         <!-- Campo para o número de dias de antecedência -->
                         <div class="">
-                            <label class="block text-sm font-medium text-gray-900">
+                            <label
+                                class="block text-sm font-medium text-gray-900"
+                            >
                                 Verificar no intervalo em minutos
                             </label>
                             <TextInput
@@ -34,7 +37,9 @@
 
                         <!-- Campo para o e-mail -->
                         <div class="">
-                            <label class="block text-sm font-medium text-gray-900">
+                            <label
+                                class="block text-sm font-medium text-gray-900"
+                            >
                                 E-mail para notificação
                             </label>
                             <TextInput
@@ -61,6 +66,12 @@
                                 Fechar
                             </button>
                         </div>
+                        <div class="" v-if="$page.props.errors[0]">
+                            <span class="text-red-500">
+                                {{ $page.props.errors[0] }}
+                            </span>
+                            <a target="&_blank" :href=" route('checkout') ">Ser Premium</a>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -72,20 +83,18 @@
 import { ref, computed } from "vue";
 import { usePage } from "@inertiajs/vue3";
 import TextInput from "@/Components/TextInput.vue";
-import { router } from '@inertiajs/vue3'
+import { router } from "@inertiajs/vue3";
 
 const props = defineProps(["isVisible", "data"]);
-
 
 const page = usePage();
 const user = computed(() => page.props.auth.user);
 
-
 const formData = ref({
     email: user.value.email,
     frequency: 15,
-    status:'',
-    url:''
+    status: "",
+    url: "",
 });
 
 const close = () => {
@@ -96,12 +105,9 @@ const handleSubmit = () => {
     formData.value.status = props.data.status;
     formData.value.url = props.data.url;
 
-    try{
-        router.post('/pages', formData.value)
-
-    }catch(e) {
-
-    }
+    try {
+        router.post("/pages", formData.value);
+    } catch (e) {}
 };
 </script>
 
@@ -115,6 +121,4 @@ const handleSubmit = () => {
 .v-leave-to {
     opacity: 0;
 }
-
-
 </style>

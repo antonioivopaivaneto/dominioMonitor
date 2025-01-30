@@ -83,7 +83,7 @@ const showingNavigationDropdown = ref(false);
         </Dropdown>
       </header>
       <div class="bg-white mx-auto w-full text-center text-blue-500">
-        Você está usando seu teste gratuito
+        <p>Seu plano é: {{ $page.props.auth.plan }}</p>
       </div>
 
       <!-- Content -->

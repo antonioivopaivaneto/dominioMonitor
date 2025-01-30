@@ -68,6 +68,10 @@
                                 Fechar
                             </button>
                         </div>
+                        <div class="text-red-500">
+                            {{ $page.props.errors[0] }}
+
+                        </div>
                     </div>
                 </form>
             </div>

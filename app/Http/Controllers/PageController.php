@@ -49,6 +49,15 @@ class PageController extends Controller
 
 
 
+        $user = Auth::user();
+        $maxDomains =$user->subscription->plan->max_domains;
+
+
+        if($user->dominios()->count() >= $maxDomains){
+            return redirect()->back()->withErrors('Voce atinjiu o limite do seu plano');
+        }
+
+
         $page = Pages::create([
             'url' => $request['url'],
             'user_id' => Auth::user()->id,
@@ -62,7 +71,7 @@ class PageController extends Controller
 
 
 
-        return redirect()->back();
+        return redirect()->back()->with('success','Dominio cadastrado com sucesso');
     }
 
     /**

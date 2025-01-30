@@ -53,6 +53,13 @@ class DomainController extends Controller
 
         $user = Auth::user();
 
+        $maxDomains =$user->subscription->plan->max_domains;
+
+
+        if($user->dominios()->count() >= $maxDomains){
+            return redirect()->back()->withErrors('Voce atinjiu o limite do seu plano');
+        }
+
         $dominio = $user->dominios()->create([
             'dominio' => $data['domain'],
             'expiration' => $data['expirationDate'],

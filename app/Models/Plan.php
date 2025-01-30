@@ -16,4 +16,9 @@ class Plan extends Model
     {
         return $this->hasMany(User::class);
     }
+    public static function premium()
+    {
+        return  self::where('name','premium')->first();
+
+    }
 }

@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -60,13 +61,30 @@ class User extends Authenticatable
         return $this->belongsTo(Plan::class);
     }
 
-    public function subscriptions(): HasMany
+    public function subscription(): HasOne
     {
-        return $this->hasMany(Subscription::class);
+        return $this->hasOne(Subscription::class);
     }
 
     public function activeSubscription()
     {
         return $this->subscriptions()->where('status', 'active')->latest()->first();
+    }
+
+    public static function  boot()
+    {
+        parent::boot();
+
+        static::created(function ($user){
+            $freePlan = Plan::where('name','free')->first();
+
+            if($freePlan){
+                Subscription::create([
+                    'user_id' => $user->id,
+                    'plan_id' => $freePlan->id,
+                    'status' => 'active',
+                ]);
+            }
+        });
     }
 }
