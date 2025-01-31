@@ -84,7 +84,9 @@ import { ref, computed } from "vue";
 import { usePage } from "@inertiajs/vue3";
 import TextInput from "@/Components/TextInput.vue";
 import { router } from '@inertiajs/vue3'
+import { useToast } from "vue-toastification";
 
+const toast = useToast();
 const props = defineProps(["isVisible", "data"]);
 
 
@@ -104,13 +106,19 @@ const close = () => {
     props.isVisible = false;
 };
 
-const handleSubmit = () => {
+const handleSubmit = async () => {
     formData.value.domain = props.data.domainName;
     formData.value.status = props.data.status;
     formData.value.expirationDate = props.data.expirationDate;
 
     try{
-        router.post('/domain', formData.value)
+         await router.post('/domain', formData.value);
+         if(!$page.props.errors[0]){
+            props.isVisible = false;
+            toast.success('Cadastrado com Sucesso');
+         }
+
+
 
     }catch(e) {
 

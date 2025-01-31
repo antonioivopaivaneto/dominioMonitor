@@ -1,8 +1,32 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head, Link } from "@inertiajs/vue3";
+import { Head, Link, router, usePage } from "@inertiajs/vue3";
+import { useToast } from 'vue-toastification';
+
+const toast = useToast();
+
 
 defineProps({ dominios: Object });
+
+
+
+
+const remover = (id) =>{
+
+    if(confirm("tem certexzza que desja remover?")){
+        try{
+            router.delete(`/domain/${id}`);
+            toast.success("dominio removido com sucesso");
+
+
+        }catch(error){
+            toast.error("erro ao remover dominio");
+
+        }
+
+    }
+
+}
 </script>
 
 <template>
@@ -38,6 +62,7 @@ defineProps({ dominios: Object });
                                     <th class="px-4 py-2 text-left text-gray-700 border-b">Domínio</th>
                                     <th class="px-4 py-2 text-left text-gray-700 border-b">Status</th>
                                     <th class="px-4 py-2 text-left text-gray-700 border-b">Expiração</th>
+                                    <th class="px-4 py-2 text-left text-gray-700 border-b">Remover</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -59,7 +84,8 @@ defineProps({ dominios: Object });
                                         {{ domain.status }}
                                     </td>
                                     <td class="px-4 py-2 border-b text-gray-800">{{ domain.expiration }}</td>
-                                </tr>
+                                    <td class="px-7 py-2 border-b text-gray-800 "><a @click="remover(domain.id)" href="javascript:void(0)" class="text-red-600 hover:text-red-800"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(220 38 38);transform: ;msFilter:;"><path d="M6 7H5v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7H6zm10.618-3L15 2H9L7.382 4H3v2h18V4z"></path></svg></a>          </td>
+                                                      </tr>
                             </tbody>
                         </table>
                     </div>

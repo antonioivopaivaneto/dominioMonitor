@@ -32,12 +32,9 @@ const show = ref(false);
                                 class="overflow-hidden bg-white shadow-sm sm:rounded-lg "
                             >
                                 <div
-                                    class="text-gray-900 dark:text-gray-900 flex justify-between"
+                                    class="text-gray-900 p-4 dark:text-gray-900 flex justify-between"
                                 >
-                                    <h3 class="text-lg font-semibold mb-4">
-                                        Insira seu Dominio e seja notificado
-                                        sobre seu status
-                                    </h3>
+                                <h3 class="text-3xl font-bold">Insira seu Domínio e seja notificado sobre seu status</h3>
 
                                     <div class="">
                                         <Link

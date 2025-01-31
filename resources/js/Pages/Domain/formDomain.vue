@@ -1,16 +1,18 @@
 <template>
-    <form>
-        <div class="flex items-center gap-2">
+    <form >
+        <div class="flex items-center gap-2 px-4  ">
             <div class="">
-                <InputLabel> Domain name</InputLabel>
+                <InputLabel> Nome do Dominio</InputLabel>
                 <TextInput
                     v-model="domain"
                     placeholder="domain.com.br"
-                    class="bg-[#121212] w-96"
+                    class="bg-[#121212] w-96 "
                 />
                 <InputError :message="fieldError" />
             </div>
-            <div class="mt-4">
+            </div>
+
+            <div class="px-4 mt-2">
                 <button
                     type="button"
                     @click="handleSubmit"
@@ -22,7 +24,6 @@
             </div>
 
 
-        </div>
 
         <form-domain-details :isVisible="showDetails" :data="dataDomain"   />
 

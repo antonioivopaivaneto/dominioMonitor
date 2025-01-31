@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dominio;
 use App\Services\WhoisService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use Twilio\Domain;
 
 class DomainController extends Controller
 {
@@ -113,6 +115,16 @@ class DomainController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+
+        $dominio = Dominio::find($id);
+
+        if ($dominio) {
+            $dominio->delete();
+            // Retorna uma resposta válida do Inertia com a mensagem flash de sucesso
+            return redirect()->route('domain.index')->with('success', 'Domínio removido com sucesso!');
+        }
+
+        return redirect()->route('domain.index')->with('error', 'Domínio não encontrado!');
+
     }
 }
