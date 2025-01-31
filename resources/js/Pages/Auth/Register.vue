@@ -9,6 +9,7 @@ import { Head, Link, useForm } from '@inertiajs/vue3';
 const form = useForm({
     name: '',
     email: '',
+    whatsapp: '',
     password: '',
     password_confirmation: '',
 });
@@ -72,6 +73,18 @@ const submit = () => {
                                 autocomplete="username"
                             />
                             <InputError class="mt-2" :message="form.errors.email" />
+                        </div>
+                        <div>
+                            <InputLabel for="whatsapp" value="whatsapp" />
+                            <TextInput
+                                id="whatsapp"
+                                type="text"
+                                class="mt-1 block w-full"
+                                v-model="form.whatsapp"
+                                required
+                                autocomplete="username"
+                            />
+                            <InputError class="mt-2" :message="form.errors.whatsapp" />
                         </div>
 
                         <div>

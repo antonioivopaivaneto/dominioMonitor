@@ -11,6 +11,14 @@ use Illuminate\Support\Facades\Mail;
 class DomainService
 {
 
+    protected $messageService;
+
+    public function __construct(Message $messageService)
+    {
+        $this->messageService = $messageService;
+
+    }
+
     public function checkDomain()
     {
 
@@ -49,10 +57,12 @@ class DomainService
             try {
                 Mail::to($domain->email)->send(new DomainExpiryAlert($domain));
 
+                $this->messageService->enviar($domain->user->whatsapp, "Alerta: Seu domínio {$domain->dominio} está prestes a expirar!");
+
                 $domain->notificado = true;
                 $domain->save();
 
-                echo "Email enviado com sucesso para {$domain->email} sobre o domínio {$domain->domain}.\n";
+                echo "Email enviado com sucesso para {$domain->email} sobre o domínio {$domain->dominio}.\n";
             } catch (\Exception $e) {
                 echo "Falha ao enviar email para {$domain->email}: {$e->getMessage()}.\n";
             }

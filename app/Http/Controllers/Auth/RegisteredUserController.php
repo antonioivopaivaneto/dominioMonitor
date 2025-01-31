@@ -33,12 +33,15 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+            'whatsapp' => 'required|string|',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
+        $whatsappComCodeCountry = "55".$request->whatsapp;
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'whatsapp' => $whatsappComCodeCountry,
             'password' => Hash::make($request->password),
         ]);
 
