@@ -89,6 +89,16 @@ import { useToast } from "vue-toastification";
 const toast = useToast();
 const props = defineProps(["isVisible", "data"]);
 
+const emit = defineEmits(["close", "sucesso", "error"]);
+const close = () => {
+    emit("close");
+};
+const sucesso = () => {
+    emit("sucesso");
+};
+const error = () => {
+    emit("error");
+};
 
 const page = usePage();
 const user = computed(() => page.props.auth.user);
@@ -102,9 +112,6 @@ const formData = ref({
     expirationDate:''
 });
 
-const close = () => {
-    props.isVisible = false;
-};
 
 const handleSubmit = async () => {
     formData.value.domain = props.data.domainName;
@@ -112,11 +119,17 @@ const handleSubmit = async () => {
     formData.value.expirationDate = props.data.expirationDate;
 
     try{
-         await router.post('/domain', formData.value);
-         if(!$page.props.errors[0]){
-            props.isVisible = false;
-            toast.success('Cadastrado com Sucesso');
-         }
+         await router.post('/domain', formData.value,{
+             preserveState: true ,
+            onSuccess: (page) => {
+                sucesso();
+                close();
+            },
+            onError: (errors) => {
+                error()
+            }
+         });
+
 
 
 

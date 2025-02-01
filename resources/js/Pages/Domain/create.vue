@@ -7,6 +7,19 @@ import { ref } from "vue";
 
 const showDetails = ref(false);
 const show = ref(false);
+
+const isHovered = ref(false);
+
+const animationButton = ()=>{
+     isHovered.value = true;
+
+    setTimeout(() => {
+         isHovered.value = false;
+
+    }, 1000);
+
+}
+
 </script>
 
 <template>
@@ -38,6 +51,12 @@ const show = ref(false);
 
                                     <div class="">
                                         <Link
+                                        @mouseover="isHovered = true"
+                                            @mouseleave="isHovered = false"
+:class="{
+                                                'scale-110 translate-y-[-5px]':
+                                                    isHovered,
+                                            }"
                                             href="/domain"
                                             class="inline-block px-4 py-2 text-white bg-green-600 hover:bg-green-700 rounded-lg transition duration-300"
                                         >
@@ -47,6 +66,7 @@ const show = ref(false);
                                 </div>
 
                                 <form-domain
+                                @animationButton="animationButton()"
                                     @toggleDetails="showDetails = true"
                                 />
                             </div>
