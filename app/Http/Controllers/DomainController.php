@@ -21,15 +21,24 @@ class DomainController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
 
-        $dominios = $user->dominios;
+
+        $search = $request->input('search');
+
+        $dominios = $user->dominios()
+        ->when($search,function($query) use ($search){
+            $query->where('dominio','like',"%{$search}%");
+        })->paginate(10)
+        ->appends(['search'=>$search]);
 
 
         return Inertia::render('Domain/index',[
-            'dominios' => $dominios]);
+            'dominios' => $dominios,
+            'search' => $search
+        ]);
     }
 
     /**

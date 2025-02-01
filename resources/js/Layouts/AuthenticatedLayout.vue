@@ -36,9 +36,7 @@ const showingNavigationDropdown = ref(false);
             route().current('domain.index') ? 'bg-gray-100 text-blue-600 font-semibold' : ''
           ]"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 me-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-3-3v6m-8 4a9 9 0 100-18 9 9 0 000 18z" />
-          </svg>
+        <svg xmlns="http://www.w3.org/2000/svg"  class="w-5 h-5 me-3" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(100, 100, 100, 1);transform: ;msFilter:;"><path d="M11.488 21.754c.294.157.663.156.957-.001 8.012-4.304 8.581-12.713 8.574-15.104a.988.988 0 0 0-.596-.903l-8.05-3.566a1.005 1.005 0 0 0-.813.001L3.566 5.747a.99.99 0 0 0-.592.892c-.034 2.379.445 10.806 8.514 15.115zM8.674 10.293l2.293 2.293 4.293-4.293 1.414 1.414-5.707 5.707-3.707-3.707 1.414-1.414z"></path></svg>
           Domínios
         </Link>
         <Link
@@ -48,9 +46,7 @@ const showingNavigationDropdown = ref(false);
             route().current('pages.index') ? 'bg-gray-100 text-blue-600 font-semibold' : ''
           ]"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 me-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M8 16h8m-4-8v8m8 0h-8m8-8H4" />
-          </svg>
+        <svg xmlns="http://www.w3.org/2000/svg"  class="w-5 h-5 me-3" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(100, 100, 100, 1);transform: ;msFilter:;"><path d="M8.465 11.293c1.133-1.133 3.109-1.133 4.242 0l.707.707 1.414-1.414-.707-.707c-.943-.944-2.199-1.465-3.535-1.465s-2.592.521-3.535 1.465L4.929 12a5.008 5.008 0 0 0 0 7.071 4.983 4.983 0 0 0 3.535 1.462A4.982 4.982 0 0 0 12 19.071l.707-.707-1.414-1.414-.707.707a3.007 3.007 0 0 1-4.243 0 3.005 3.005 0 0 1 0-4.243l2.122-2.121z"></path><path d="m12 4.929-.707.707 1.414 1.414.707-.707a3.007 3.007 0 0 1 4.243 0 3.005 3.005 0 0 1 0 4.243l-2.122 2.121c-1.133 1.133-3.109 1.133-4.242 0L10.586 12l-1.414 1.414.707.707c.943.944 2.199 1.465 3.535 1.465s2.592-.521 3.535-1.465L19.071 12a5.008 5.008 0 0 0 0-7.071 5.006 5.006 0 0 0-7.071 0z"></path></svg>
           Páginas
         </Link>
       </nav>

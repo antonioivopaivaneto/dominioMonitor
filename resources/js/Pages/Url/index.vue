@@ -5,6 +5,7 @@ import { ref } from "vue";
 import axios from "axios";
 import { useToast } from "vue-toastification";
 import TextInput from "@/Components/TextInput.vue";
+import Modal from '@/Components/Modal.vue'; // Ajuste o caminho conforme necessário
 
 const toast = useToast();
 const showDetails = ref(false);
@@ -13,6 +14,15 @@ const show = ref(false);
 const props = defineProps({ pages: Object, search: String });
 
 const search = ref(props.search || "");
+const pageToRemove = ref(null);
+
+// Controle do estado de exibição do modal
+const showModal = ref(false);
+
+// Função para lidar com o fechamento do modal
+const handleClose = () => {
+  showModal.value = false;
+};
 
 // Função para buscar páginas com filtro
 const searchPages = () => {
@@ -23,26 +33,34 @@ const searchPages = () => {
     );
 };
 
-const remover = (id) =>{
+const modalOpen = (id)=>{
+    pageToRemove.value = id;
+    showModal.value =true
 
-if(confirm("tem certexzza que desja remover?")){
+
+}
+const remover = () =>{
+    showModal.value = false
+
     try{
-        router.delete(`/pages/${id}`,{
+        if(pageToRemove.value !== null){
+        router.delete(`/pages/${pageToRemove.value}`,{
             onSuccess:(page)=>{
-                toast.success("dominio removido com sucesso");
+                toast.success("pagina removido com sucesso");
             },
             onError: (errors) => {
-                toast.error("erro ao remover dominio");
+                toast.error("erro ao remover pagina");
             }
 
         });
+    }
 
     }catch(error){
-        toast.error("erro ao remover dominio");
+        toast.error("erro ao remover pagina");
 
     }
 
-}
+
 
 }
 
@@ -74,12 +92,36 @@ const fetchPages = (url) => {
             </h2>
         </template>
 
+        <Modal
+  v-model:show="showModal"
+  :maxWidth="'2xl'"
+  :closeable="true"
+  @close="handleClose"
+>
+  <template #default>
+    <div class="p-6 bg-white text-black rounded-lg shadow-lg">
+      <h2 class="text-lg font-semibold">Aviso</h2>
+      <p>Voce esta prestes a remover</p>
+      <div class="flex gap-2">
+        <button @click="remover()" href="javascript:void(0)" class="mt-4 px-4 py-2 bg-red-500 text-white rounded">
+        Sim, Remover Pagina
+      </button>
+        <button @click="showModal = false" class="mt-4 px-4 py-2 bg-gray-500 text-white rounded">
+        Fechar
+      </button>
+      </div>
+
+    </div>
+  </template>
+</Modal>
+
+
         <div class="py-12">
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div class="overflow-hidden bg-white shadow sm:rounded-lg">
                     <div class="p-6">
                         <div class="flex justify-between items-center mb-6">
-                            <h3 class="text-lg font-semibold text-gray-800">
+                            <h3 class="text-2xl font-semibold text-gray-800">
                                 Insira seu domínio e seja notificado sobre seu
                                 status
                             </h3>
@@ -197,24 +239,32 @@ const fetchPages = (url) => {
                                             ></div>
                                         </label>
                                     </td>
-                                    <td class="px-7 py-2 border-b text-gray-800 "><a @click="remover(page.id)" href="javascript:void(0)" class="text-red-600 hover:text-red-800"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(220 38 38);transform: ;msFilter:;"><path d="M6 7H5v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7H6zm10.618-3L15 2H9L7.382 4H3v2h18V4z"></path></svg></a>          </td>
+                                    <td class="px-7 py-2 border-b text-gray-800 "><a @click="modalOpen(page.id)"  class="text-red-600 hover:text-red-800 cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(220 38 38);transform: ;msFilter:;"><path d="M6 7H5v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7H6zm10.618-3L15 2H9L7.382 4H3v2h18V4z"></path></svg></a>          </td>
 
                                 </tr>
+                                <tr v-if="pages.data.length == 0">Cadastre sua pagina</tr>
+
                             </tbody>
                         </table>
+
+
+
 
                         <div class="mt-4 flex gap-2">
                             <button
                                 :disabled="!pages.prev_page_url"
                                 @click="fetchPages(pages.prev_page_url)"
-                                class="px-4 py-2 bg-gray-300 rounded"
+                                class="px-4 py-2 bg-gray-300 rounded-full"
+                                :class="{'cursor-not-allowed bg-gray-400':!pages.prev_page_url}"
+
                             >
                                 Anterior
                             </button>
                             <button
                                 :disabled="!pages.next_page_url"
                                 @click="fetchPages(pages.next_page_url)"
-                                class="px-4 py-2 bg-gray-300 rounded"
+                                class="px-4 py-2 bg-gray-300 rounded-full"
+                                :class="{'cursor-not-allowed bg-gray-400':!pages.next_page_url}"
                             >
                                 Próximo
                             </button>
