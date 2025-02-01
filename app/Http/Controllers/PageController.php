@@ -19,15 +19,21 @@ class PageController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
+        $search = $request->input('search');
 
-        $pages = $user->pages;
+        $pages = $user->pages()
+        ->when($search,function($query) use ($search){
+            $query->where('url','like',"%{$search}%");
+        })->paginate(10)
+        ->appends(['search'=>$search]);
 
 
         return Inertia::render('Url/index', [
-            'pages' => $pages
+            'pages' => $pages,
+            'search'=>$search
         ]);
     }
 
@@ -47,6 +53,8 @@ class PageController extends Controller
 
 
 
+        //return redirect()->back()->withErrors(['error' => 'Domínio não cadastrado com sucesso.']);
+
 
 
         $user = Auth::user();
@@ -54,7 +62,7 @@ class PageController extends Controller
 
 
         if($user->dominios()->count() >= $maxDomains){
-            return redirect()->back()->withErrors('Voce atinjiu o limite do seu plano');
+            return redirect()->back()->withErrors('Voce atingiu o limite do seu plano');
         }
 
 
@@ -127,6 +135,14 @@ class PageController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $dominio = Pages::find($id);
+
+        if ($dominio) {
+            $dominio->delete();
+            // Retorna uma resposta válida do Inertia com a mensagem flash de sucesso
+            return redirect()->route('pages.index')->with('success', 'Domínio removido com sucesso!');
+        }
+
+        return redirect()->route('pages.index')->withErrors('error', 'Domínio não encontrado!');
     }
 }

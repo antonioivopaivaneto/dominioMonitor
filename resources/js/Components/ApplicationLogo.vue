@@ -10,7 +10,7 @@
                 />
                 <circle cx="12" cy="12" r="4" />
               </svg>
-             <span class="text-gray-500">WEB MONI</span>
+             <span class="text-gray-500">Notiflow</span>
 
             </div>
 

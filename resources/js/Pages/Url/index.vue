@@ -1,25 +1,66 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head, Link } from "@inertiajs/vue3";
+import { Head, Link, router } from "@inertiajs/vue3";
 import { ref } from "vue";
 import axios from "axios";
 import { useToast } from "vue-toastification";
+import TextInput from "@/Components/TextInput.vue";
 
 const toast = useToast();
 const showDetails = ref(false);
 const show = ref(false);
 
-defineProps({ pages: Object });
+const props = defineProps({ pages: Object, search: String });
+
+const search = ref(props.search || "");
+
+// Função para buscar páginas com filtro
+const searchPages = () => {
+    router.get(
+        route("pages.index"),
+        { search: search.value },
+        { preserveState: true }
+    );
+};
+
+const remover = (id) =>{
+
+if(confirm("tem certexzza que desja remover?")){
+    try{
+        router.delete(`/pages/${id}`,{
+            onSuccess:(page)=>{
+                toast.success("dominio removido com sucesso");
+            },
+            onError: (errors) => {
+                toast.error("erro ao remover dominio");
+            }
+
+        });
+
+    }catch(error){
+        toast.error("erro ao remover dominio");
+
+    }
+
+}
+
+}
 
 const handleSubmit = async (id) => {
     try {
-        const response = await axios.get('/setEnablePageVerify', { params: { id: id } });
-        console.log('aqui', response);
+        const response = await axios.get("/setEnablePageVerify", {
+            params: { id: id },
+        });
+        console.log("aqui", response);
 
-        toast.success('Alterado com Sucesso');
+        toast.success("Alterado com Sucesso");
     } catch (error) {
         console.error("Erro ao buscar informações do domínio:", error);
     }
+};
+
+const fetchPages = (url) => {
+    router.get(url);
 };
 </script>
 
@@ -39,7 +80,8 @@ const handleSubmit = async (id) => {
                     <div class="p-6">
                         <div class="flex justify-between items-center mb-6">
                             <h3 class="text-lg font-semibold text-gray-800">
-                                Insira seu domínio e seja notificado sobre seu status
+                                Insira seu domínio e seja notificado sobre seu
+                                status
                             </h3>
                             <Link
                                 href="/pages/create"
@@ -49,47 +91,105 @@ const handleSubmit = async (id) => {
                             </Link>
                         </div>
 
+                        <!-- Campo de Busca -->
+                        <TextInput
+                            v-model="search"
+                            @input="searchPages"
+                            placeholder="Pesquisar..."
+                            class="border px-3 py-2 rounded w-full mb-5"
+                        />
+
                         <table class="min-w-full border border-gray-300">
                             <thead class="bg-gray-100 text-gray-700">
                                 <tr>
-                                    <th class="px-4 py-2 text-left border-b border-gray-300">#</th>
-                                    <th class="px-4 py-2 text-left border-b border-gray-300">Domínio</th>
-                                    <th class="px-4 py-2 text-left border-b border-gray-300">Status</th>
-                                    <th class="px-4 py-2 text-left border-b border-gray-300">Última Verificação</th>
-                                    <th class="px-4 py-2 text-left border-b border-gray-300">Intervalo</th>
-                                    <th class="px-4 py-2 text-left border-b border-gray-300">Verificação</th>
+                                    <th
+                                        class="px-4 py-2 text-left border-b border-gray-300"
+                                    >
+                                        #
+                                    </th>
+                                    <th
+                                        class="px-4 py-2 text-left border-b border-gray-300"
+                                    >
+                                        Domínio
+                                    </th>
+                                    <th
+                                        class="px-4 py-2 text-left border-b border-gray-300"
+                                    >
+                                        Status
+                                    </th>
+                                    <th
+                                        class="px-4 py-2 text-left border-b border-gray-300"
+                                    >
+                                        Última Verificação
+                                    </th>
+                                    <th
+                                        class="px-4 py-2 text-left border-b border-gray-300"
+                                    >
+                                        Intervalo
+                                    </th>
+                                    <th
+                                        class="px-4 py-2 text-left border-b border-gray-300"
+                                    >
+                                        Verificação
+                                    </th>
+                                    <th
+                                        class="px-4 py-2 text-left border-b border-gray-300"
+                                    >
+                                        Remover
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr
-                                    v-for="page in pages"
+                                    v-for="page in pages.data"
                                     :key="page.id"
                                     class="even:bg-gray-50 odd:bg-white"
                                 >
-                                    <td class="px-4 py-2 border-b border-gray-300">{{ page.id }}</td>
-                                    <td class="px-4 py-2 border-b border-gray-300">{{ page.url }}</td>
+                                    <td
+                                        class="px-4 py-2 border-b border-gray-300"
+                                    >
+                                        {{ page.id }}
+                                    </td>
+                                    <td
+                                        class="px-4 py-2 border-b border-gray-300"
+                                    >
+                                        {{ page.url }}
+                                    </td>
                                     <td
                                         class="px-4 py-2 border-b border-gray-300 capitalize"
                                         :class="{
-                                            'text-green-600': page.status === 'Active',
-                                            'text-yellow-500': page.status === 'Pending',
-                                            'text-red-600': page.status === 'Expired',
+                                            'text-green-600':
+                                                page.status === 'Active',
+                                            'text-yellow-500':
+                                                page.status === 'Pending',
+                                            'text-red-600':
+                                                page.status === 'Expired',
                                         }"
                                     >
                                         {{ page.status }}
                                     </td>
-                                    <td class="px-4 py-2 border-b border-gray-300">
+                                    <td
+                                        class="px-4 py-2 border-b border-gray-300"
+                                    >
                                         {{ page.last_verification }}
                                     </td>
-                                    <td class="px-4 py-2 border-b border-gray-300">
+                                    <td
+                                        class="px-4 py-2 border-b border-gray-300"
+                                    >
                                         {{ page.frequency }} Minutos
                                     </td>
-                                    <td class="px-4 py-2 border-b border-gray-300">
-                                        <label class="inline-flex items-center cursor-pointer">
+                                    <td
+                                        class="px-4 py-2 border-b border-gray-300"
+                                    >
+                                        <label
+                                            class="inline-flex items-center cursor-pointer"
+                                        >
                                             <input
                                                 type="checkbox"
                                                 class="sr-only peer"
-                                                :checked="page.verification_enabled"
+                                                :checked="
+                                                    page.verification_enabled
+                                                "
                                                 @click="handleSubmit(page.id)"
                                             />
                                             <div
@@ -97,9 +197,28 @@ const handleSubmit = async (id) => {
                                             ></div>
                                         </label>
                                     </td>
+                                    <td class="px-7 py-2 border-b text-gray-800 "><a @click="remover(page.id)" href="javascript:void(0)" class="text-red-600 hover:text-red-800"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(220 38 38);transform: ;msFilter:;"><path d="M6 7H5v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7H6zm10.618-3L15 2H9L7.382 4H3v2h18V4z"></path></svg></a>          </td>
+
                                 </tr>
                             </tbody>
                         </table>
+
+                        <div class="mt-4 flex gap-2">
+                            <button
+                                :disabled="!pages.prev_page_url"
+                                @click="fetchPages(pages.prev_page_url)"
+                                class="px-4 py-2 bg-gray-300 rounded"
+                            >
+                                Anterior
+                            </button>
+                            <button
+                                :disabled="!pages.next_page_url"
+                                @click="fetchPages(pages.next_page_url)"
+                                class="px-4 py-2 bg-gray-300 rounded"
+                            >
+                                Próximo
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

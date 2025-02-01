@@ -40,10 +40,10 @@ const submit = () => {
                 <div
                     class="bg-blue-600 p-8 flex flex-col justify-center text-white"
                 >
-                    <h1 class="text-4xl font-bold mb-4">Web Moni</h1>
+                    <h1 class="text-4xl font-bold mb-4">Notiflow</h1>
                     <p class="text-lg">
                         Mantenha o controle total sobre seus domínios e páginas
-                        com o <strong>Web Moni</strong>. Receba alertas e
+                        com o <strong>Notiflow</strong>. Receba alertas e
                         notificações em tempo real sobre:
                     </p>
                     <ul class="list-disc list-inside mt-4 text-white">

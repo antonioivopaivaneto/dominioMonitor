@@ -7,8 +7,18 @@ import { ref } from "vue";
 
 const showDetails = ref(false);
 const show = ref(false);
-</script>
+const isHovered = ref(false);
 
+const animationButton = ()=>{
+     isHovered.value = true;
+
+    setTimeout(() => {
+         isHovered.value = false;
+
+    }, 1000);
+
+}
+</script>
 
 <template>
     <Head title="Dashboard" />
@@ -24,32 +34,37 @@ const show = ref(false);
 
         <div class="py-12">
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                <div
-                    class="overflow-hidden bg-white shadow-sm sm:rounded-lg "
-                >
+                <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                     <div class="py-12">
                         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
                             <div
-                                class="overflow-hidden bg-white shadow-sm sm:rounded-lg "
+                                class=" bg-white shadow-sm sm:rounded-lg"
                             >
-                                <div class="text-gray-900 dark:text-gray-900 flex justify-between">
+                                <div
+                                    class="text-gray-900 dark:text-gray-900 flex justify-between"
+                                >
                                     <h3 class="text-lg font-semibold mb-4">
-                                        Insira sua Url e seja notificado
-                                        sobre seu status
+                                        Insira sua Url e seja notificado sobre
+                                        seu status
                                     </h3>
 
-                                    <div class="">  <Link
-      href="/pages"
-      class="inline-block px-4 py-2 text-white bg-green-600 hover:bg-green-700 rounded-lg transition duration-300"
-    >
-      Acompanhar Paginas
-    </Link></div>
+                                    <div class="">
+                                        <Link
+                                            @mouseover="isHovered = true"
+                                            @mouseleave="isHovered = false"
+                                            href="/pages"
+                                            class="inline-block px-4 py-2 text-white bg-green-600 hover:bg-green-700 rounded-lg transition duration-300"
+                                            :class="{
+                                                'scale-110 translate-y-[-5px]':
+                                                    isHovered,
+                                            }"
+                                        >
+                                            Acompanhar Paginas
+                                        </Link>
+                                    </div>
                                 </div>
 
-                                <formUrl @toggleDetails="showDetails =true" />
-
-
-
+                                <formUrl @animationButton="animationButton()"  @toggleDetails="showDetails = true" />
                             </div>
                         </div>
                     </div>

@@ -70,7 +70,9 @@
                             <span class="text-red-500">
                                 {{ $page.props.errors[0] }}
                             </span>
-                            <a target="&_blank" :href=" route('checkout') ">Ser Premium</a>
+                            <a target="&_blank" :href="route('checkout')"
+                                >Ser Premium</a
+                            >
                         </div>
                     </div>
                 </form>
@@ -87,6 +89,8 @@ import { router } from "@inertiajs/vue3";
 
 const props = defineProps(["isVisible", "data"]);
 
+const emit = defineEmits(["close", "sucesso", "error"]);
+
 const page = usePage();
 const user = computed(() => page.props.auth.user);
 
@@ -98,7 +102,13 @@ const formData = ref({
 });
 
 const close = () => {
-    props.isVisible = false;
+    emit("close");
+};
+const sucesso = () => {
+    emit("sucesso");
+};
+const error = () => {
+    emit("error");
 };
 
 const handleSubmit = () => {
@@ -106,8 +116,19 @@ const handleSubmit = () => {
     formData.value.url = props.data.url;
 
     try {
-        router.post("/pages", formData.value);
-    } catch (e) {}
+        router.post("/pages", formData.value, {
+            onSuccess: (page) => {
+                sucesso();
+                close();
+            },
+            onError: (errors) => {
+                error()
+            }
+
+        });
+    } catch (e) {
+        error()
+    }
 };
 </script>
 
