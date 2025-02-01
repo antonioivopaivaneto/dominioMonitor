@@ -15,7 +15,7 @@ import { Link } from '@inertiajs/vue3';
 
         <!-- Rodapé (opcional) -->
         <div class="p-4 text-sm text-center text-gray-300">
-            <p>&copy; {{ new Date().getFullYear() }} Web Moni. Todos os direitos reservados.</p>
+            <p>&copy; {{ new Date().getFullYear() }} Notiflow. Todos os direitos reservados.</p>
             <Link href="#" class="text-blue-300 hover:underline">
                 Política de Privacidade
             </Link>

@@ -5,7 +5,11 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import { TheMask } from 'vue-the-mask';
+import { ref } from 'vue';
 
+
+const localWhatsapp = ref()
 const form = useForm({
     name: '',
     email: '',
@@ -23,14 +27,14 @@ const submit = () => {
 
 <template>
     <GuestLayout>
-        <Head title="Cadastro - Web Moni" />
+        <Head title="Cadastro - Notiflow" />
 
         <div class="max-w-7xl min-h-screen flex items-center justify-center overflow-hidden">
             <div class="bg-white shadow-lg rounded-lg p-10 w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-8">
                 <!-- Seção de Boas-Vindas -->
                 <div class="flex flex-col justify-center">
                     <h1 class="text-3xl md:text-4xl font-bold text-blue-600 mb-4">
-                        Cadastro - Web Moni
+                        Cadastro - Notiflow
                     </h1>
                     <p class="text-gray-700 text-lg">
                         Crie uma conta para monitorar seus domínios e páginas! Receba notificações sobre:
@@ -83,9 +87,13 @@ const submit = () => {
                                 v-model="form.whatsapp"
                                 required
                                 autocomplete="username"
+                                v-mask="['(##) ####-####', '(##) #####-####']"
                             />
                             <InputError class="mt-2" :message="form.errors.whatsapp" />
                         </div>
+
+
+
 
                         <div>
                             <InputLabel for="password" value="Senha" />

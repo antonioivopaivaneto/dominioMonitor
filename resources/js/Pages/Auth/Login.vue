@@ -31,7 +31,7 @@ const submit = () => {
 
 <template>
     <GuestLayout>
-        <Head title="Bem-vindo ao Web Moni" />
+        <Head title="Bem-vindo ao Notiflow" />
 
             <div
                 class="bg-white shadow-2xl rounded-lg overflow-hidden w-full max-w-5xl grid grid-cols-1 md:grid-cols-2"

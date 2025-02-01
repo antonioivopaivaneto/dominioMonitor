@@ -6,6 +6,7 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createApp, h } from 'vue';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 import Toast from "vue-toastification";
+import VueTheMask from 'vue-the-mask'
 // Import the CSS or use your own!
 import "vue-toastification/dist/index.css";
 
@@ -38,6 +39,7 @@ createInertiaApp({
     setup({ el, App, props, plugin }) {
         return createApp({ render: () => h(App, props) })
             .use(plugin)
+            .use(VueTheMask)
             .use(ZiggyVue)
             .use(Toast, options)
             .mount(el);

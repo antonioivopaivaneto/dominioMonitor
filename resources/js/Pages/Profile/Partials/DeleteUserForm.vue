@@ -41,31 +41,31 @@ const closeModal = () => {
 <template>
     <section class="space-y-6">
         <header>
-            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                Delete Account
+            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-800">
+                Remover Conta
             </h2>
 
             <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                Once your account is deleted, all of its resources and data will
-                be permanently deleted. Before deleting your account, please
-                download any data or information that you wish to retain.
+                Depois que sua conta for excluída, todos os seus recursos e dados serão
+permanentemente excluídos. Antes de excluir sua conta, por favor
+baixe quaisquer dados ou informações que você deseja reter.
             </p>
         </header>
 
-        <DangerButton @click="confirmUserDeletion">Delete Account</DangerButton>
+        <DangerButton @click="confirmUserDeletion">Deletar Conta</DangerButton>
 
         <Modal :show="confirmingUserDeletion" @close="closeModal">
             <div class="p-6">
                 <h2
-                    class="text-lg font-medium text-gray-900 dark:text-gray-100"
+                    class="text-lg font-medium text-gray-900 dark:text-gray-700"
                 >
-                    Are you sure you want to delete your account?
+                Tem certeza de que deseja excluir sua conta?
                 </h2>
 
                 <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                    Once your account is deleted, all of its resources and data
-                    will be permanently deleted. Please enter your password to
-                    confirm you would like to permanently delete your account.
+                    Depois que sua conta for excluída, todos os seus recursos e dados
+serão excluídos permanentemente. Insira sua senha para
+confirmar que você deseja excluir sua conta permanentemente.
                 </p>
 
                 <div class="mt-6">
@@ -90,7 +90,7 @@ const closeModal = () => {
 
                 <div class="mt-6 flex justify-end">
                     <SecondaryButton @click="closeModal">
-                        Cancel
+                        Cancelar
                     </SecondaryButton>
 
                     <DangerButton
