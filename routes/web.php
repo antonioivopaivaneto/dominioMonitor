@@ -5,6 +5,7 @@ use App\Http\Controllers\DomainController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -13,6 +14,7 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+Route::get('/report',[ReportController::class,'index'])->middleware(['auth', 'verified'])->name('report.index');
 Route::get('/dashboard',[DashboardController::class,'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/checkout', [PaymentController::class, 'checkout'])->name('checkout');
