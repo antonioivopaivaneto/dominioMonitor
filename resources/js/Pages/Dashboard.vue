@@ -1,6 +1,6 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head } from "@inertiajs/vue3";
+import { Head, Link } from "@inertiajs/vue3";
 import "animate.css";
 import { ref } from "vue";
 
@@ -174,12 +174,13 @@ const closeModal = () => {
         </li>
     </ul>
     <div class="text-center mt-6">
-        <a
-            href="#"
+        <Link
+        :href="route('report.index')"
+
             class="px-6 py-3 text-white bg-green-500 hover:bg-green-700 rounded-lg font-semibold text-lg"
         >
-            Acesse sua Conta Premium
-        </a>
+           Acessar Relatorios Premium
+        </Link>
     </div>
 </div>
 
