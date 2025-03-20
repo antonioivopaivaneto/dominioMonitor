@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pages;
+use App\Models\Verificacoes;
 use App\Services\PageService;
 use Auth;
 use Illuminate\Http\Request;
@@ -87,7 +88,14 @@ class PageController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $verificacoes = Verificacoes::where('page_id', $id)->with(['page'])->get();
+        $page = Pages::find($id);
+
+
+        return Inertia::render('Url/show', [
+            'page' => $page,
+            'verificacoes' => $verificacoes,
+        ]);
     }
 
     /**

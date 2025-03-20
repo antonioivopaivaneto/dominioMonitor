@@ -13,5 +13,10 @@ class Verificacoes extends Model
         'verificado_em' => 'datetime',
     ];
 
+    public function page()
+    {
+        return $this->belongsTo(Pages::class);
+    }
+
 
 }

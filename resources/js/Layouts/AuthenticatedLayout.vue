@@ -74,6 +74,20 @@ const isSidebarOpen = ref(false); // Controla a visibilidade do menu no mobile
           </svg>
           Relatórios
         </Link>
+
+        <Link :href="route('logout')" method="post" as="button"
+          :class="[
+            'flex items-center px-4 py-3 text-gray-600 rounded-lg hover:bg-gray-100',
+            route().current('report.index') ? 'bg-gray-100 text-blue-600 font-semibold' : ''
+          ]"
+        >
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 me-3" viewBox="0 0 24 24" style="fill: rgba(100, 100, 100, 1);transform: ;msFilter:;"><path d="M18 2H6a1 1 0 0 0-1 1v9l5-4v3h6v2h-6v3l-5-4v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z"></path></svg>
+          Sair
+        </Link>
+
+
+
+
       </nav>
     </aside>
 

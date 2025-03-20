@@ -11,7 +11,7 @@ const toast = useToast();
 const showDetails = ref(false);
 const show = ref(false);
 
-const props = defineProps({ pages: Object, search: String });
+const props = defineProps({ page: Object,verificacoes: Object, search: String });
 
 const search = ref(props.search || "");
 const pageToRemove = ref(null);
@@ -42,7 +42,7 @@ const remover = () => {
 
     try {
         if (pageToRemove.value !== null) {
-            router.delete(`/pages/${pageToRemove.value}`, {
+            router.delete(`/verificao/${pageToRemove.value}`, {
                 onSuccess: (page) => {
                     toast.success("pagina removido com sucesso");
                 },
@@ -100,7 +100,7 @@ const fetchPages = (url) => {
                             href="javascript:void(0)"
                             class="mt-4 px-4 py-2 bg-red-500 text-white rounded"
                         >
-                            Sim, Remover Pagina
+                            Sim, Remover Registro
                         </button>
                         <button
                             @click="showModal = false"
@@ -119,24 +119,12 @@ const fetchPages = (url) => {
                     <div class="p-6">
                         <div class="flex justify-between items-center mb-6">
                             <h3 class="text-2xl font-semibold text-gray-800">
-                                Insira seu domínio e seja notificado sobre seu
-                                status
+                                Historico  de Verificação
                             </h3>
-                            <Link
-                                href="/pages/create"
-                                class="inline-block px-4 py-2 text-white bg-green-600 hover:bg-green-700 rounded-lg transition duration-300"
-                            >
-                                Adicionar Página
-                            </Link>
+
                         </div>
 
-                        <!-- Campo de Busca -->
-                        <TextInput
-                            v-model="search"
-                            @input="searchPages"
-                            placeholder="Pesquisar..."
-                            class="border px-3 py-2 rounded w-full mb-5"
-                        />
+
 
                         <table class="min-w-full border border-gray-300">
                             <thead class="bg-gray-100 text-gray-700">
@@ -159,18 +147,9 @@ const fetchPages = (url) => {
                                     <th
                                         class="px-4 py-2 text-left border-b border-gray-300"
                                     >
-                                        Última Verificação
+                                        datalhes
                                     </th>
-                                    <th
-                                        class="px-4 py-2 text-left border-b border-gray-300"
-                                    >
-                                        Intervalo
-                                    </th>
-                                    <th
-                                        class="px-4 py-2 text-left border-b border-gray-300"
-                                    >
-                                        Verificação
-                                    </th>
+
                                     <th
                                         class="px-4 py-2 text-left border-b border-gray-300"
                                     >
@@ -180,72 +159,38 @@ const fetchPages = (url) => {
                             </thead>
                             <tbody>
                                 <tr
-                                    v-for="page in pages.data"
-                                    :key="page.id"
+                                    v-for="verificacao in verificacoes"
+                                    :key="verificacao.id"
                                     class="even:bg-gray-50 odd:bg-white"
                                 >
                                     <td
                                         class="px-4 py-2 border-b border-gray-300"
                                     >
-                                        {{ page.id }}
+                                        {{ verificacao.id }}
                                     </td>
                                     <td
                                         class="px-4 py-2 border-b border-gray-300"
                                     >
-                                        <Link
-                                            :href="route('pages.show', page.id)"
+                                        {{ verificacao.page.url }}
+                                    </td>
+                                    <td
+                                        class="px-4 py-2 border-b border-gray-300"
+                                    >
+                                        {{ verificacao.status }}
+                                    </td>
+                                    <td
+                                        class="px-4 py-2 border-b border-gray-300"
+                                    >
+                                        {{ verificacao.detalhes }}
+                                    </td>
 
-                                        >
-                                            {{ page.url }}
-                                        </Link>
-                                    </td>
-                                    <td
-                                        class="px-4 py-2 border-b border-gray-300 capitalize"
-                                        :class="{
-                                            'text-green-600':
-                                                page.status === 'Active',
-                                            'text-yellow-500':
-                                                page.status === 'Pending',
-                                            'text-red-600':
-                                                page.status === 'Expired',
-                                        }"
-                                    >
-                                        {{ page.status }}
-                                    </td>
-                                    <td
-                                        class="px-4 py-2 border-b border-gray-300"
-                                    >
-                                        {{ page.last_verification }}
-                                    </td>
-                                    <td
-                                        class="px-4 py-2 border-b border-gray-300"
-                                    >
-                                        {{ page.frequency }} Minutos
-                                    </td>
-                                    <td
-                                        class="px-4 py-2 border-b border-gray-300"
-                                    >
-                                        <label
-                                            class="inline-flex items-center cursor-pointer"
-                                        >
-                                            <input
-                                                type="checkbox"
-                                                class="sr-only peer"
-                                                :checked="
-                                                    page.verification_enabled
-                                                "
-                                                @click="handleSubmit(page.id)"
-                                            />
-                                            <div
-                                                class="relative w-11 h-6 bg-gray-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-500"
-                                            ></div>
-                                        </label>
-                                    </td>
+
+
                                     <td
                                         class="px-7 py-2 border-b text-gray-800"
                                     >
                                         <a
-                                            @click="modalOpen(page.id)"
+                                            @click="modalOpen(verificacao.id)"
                                             class="text-red-600 hover:text-red-800 cursor-pointer"
                                             ><svg
                                                 xmlns="http://www.w3.org/2000/svg"
@@ -264,31 +209,31 @@ const fetchPages = (url) => {
                                         ></a>
                                     </td>
                                 </tr>
-                                <tr v-if="pages.data.length == 0">
-                                    Cadastre sua pagina
+                                <tr v-if="verificacoes.length == 0">
+                                   Não a Verificaoes para essa Pagina
                                 </tr>
                             </tbody>
                         </table>
 
                         <div class="mt-4 flex gap-2">
                             <button
-                                :disabled="!pages.prev_page_url"
-                                @click="fetchPages(pages.prev_page_url)"
+                                :disabled="!verificacoes.prev_page_url"
+                                @click="fetchverificacoes(verificacoes.prev_page_url)"
                                 class="px-4 py-2 bg-gray-300 rounded-full"
                                 :class="{
                                     'cursor-not-allowed bg-gray-400':
-                                        !pages.prev_page_url,
+                                        !verificacoes.prev_page_url,
                                 }"
                             >
                                 Anterior
                             </button>
                             <button
-                                :disabled="!pages.next_page_url"
-                                @click="fetchPages(pages.next_page_url)"
+                                :disabled="!verificacoes.next_page_url"
+                                @click="fetchverificacoes(verificacoes.next_page_url)"
                                 class="px-4 py-2 bg-gray-300 rounded-full"
                                 :class="{
                                     'cursor-not-allowed bg-gray-400':
-                                        !pages.next_page_url,
+                                        !verificacoes.next_page_url,
                                 }"
                             >
                                 Próximo
