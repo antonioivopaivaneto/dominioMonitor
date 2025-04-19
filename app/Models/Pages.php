@@ -17,9 +17,10 @@ class Pages extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
-    public function verificacoes(){
-        return $this->hasMany(Verificacoes::class);
-    }
+public function verificacoes()
+{
+    return $this->hasMany(Verificacoes::class, 'page_id'); // Verifique se o nome da chave estrangeira está correto
+}
 
 
 }

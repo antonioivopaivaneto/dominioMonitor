@@ -47,7 +47,7 @@ const animationButton = ()=>{
                                 <div
                                     class="text-gray-900 p-4 dark:text-gray-900 flex justify-between"
                                 >
-                                <h3 class="text-3xl font-bold">Insira seu Domínio e seja notificado sobre seu status</h3>
+                                <h2 class="text-3xl font-bold">Insira seu Domínio e seja notificado sobre seu status</h2>
 
                                     <div class="">
                                         <Link

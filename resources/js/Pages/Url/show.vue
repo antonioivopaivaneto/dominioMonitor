@@ -121,6 +121,12 @@ const fetchPages = (url) => {
                             <h3 class="text-2xl font-semibold text-gray-800">
                                 Historico  de Verificação
                             </h3>
+                            <Link
+                                href="/pages"
+                                class="inline-block px-4 py-2 text-white bg-green-500 hover:bg-green-600 rounded-lg transition duration-300"
+                            >
+                                Acompanhar Página
+                            </Link>
 
                         </div>
 

@@ -70,7 +70,13 @@ const closeModal = () => {
                             <div
                                 class="bg-gray-200 overflow-hidden shadow-sm sm:rounded-lg"
                             >
+
+
                                 <div class="md:p-6 p-2 text-gray-800">
+                                    <Link
+          :href="route('pages.index')"
+
+        >
                                     <h3
                                         class="text-red-600 md:text-2xl sm:text-lg font-semibold"
                                     >
@@ -81,13 +87,16 @@ const closeModal = () => {
                                             verifyWithErrors
                                         }}</span>
                                     </p>
+                                </Link>
                                 </div>
+
                             </div>
 
                             <h1 class="animate__animated animate__flash">
                                 Última Verificação em: {{ lastVerify }}
                             </h1>
                         </div>
+
                     </div>
                 </div>
 
@@ -170,12 +179,12 @@ const closeModal = () => {
             Relatórios detalhados de desempenho e uptime.
         </li>
         <li>
-            Acesso a funcionalidades exclusivas como backups automáticos e suporte prioritário.
+            Acesso a funcionalidades exclusiva.
         </li>
     </ul>
     <div class="text-center mt-6">
         <Link
-        :href="route('report.index')"
+        :href="route('report.show')"
 
             class="px-6 py-3 text-white bg-green-500 hover:bg-green-700 rounded-lg font-semibold text-lg"
         >

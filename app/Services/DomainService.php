@@ -12,10 +12,13 @@ class DomainService
 {
 
     protected $messageService;
+    protected WhoisService $whois;
+
 
     public function __construct(Message $messageService)
     {
         $this->messageService = $messageService;
+        $this->whois = new WhoisService();
 
     }
 
@@ -55,6 +58,8 @@ class DomainService
 
         foreach ($domains as $domain) {
             try {
+                $this->verifyAndUpdateDomainExpiration($domain);
+
                 Mail::to($domain->email)->send(new DomainExpiryAlert($domain));
 
                 $this->messageService->enviar($domain->user->whatsapp, "Alerta: Seu domínio {$domain->dominio} está prestes a expirar!");
@@ -66,6 +71,20 @@ class DomainService
             } catch (\Exception $e) {
                 echo "Falha ao enviar email para {$domain->email}: {$e->getMessage()}.\n";
             }
+        }
+    }
+
+
+    private function verifyAndUpdateDomainExpiration(Dominio $domain)
+    {
+        $result =  $this->whois->lookup($domain->dominio);
+
+        if (isset($result['expirationDate'])) {
+            $domain->expiration = Carbon::createFromFormat('d/m/Y', $result['expirationDate'])->format('Y-m-d');
+            $domain->status = $result['status'];
+            $domain->save();
+        } else {
+            echo "Erro ao verificar o domínio {$domain->dominio}: {$result['error']}\n";
         }
     }
 }

@@ -13,7 +13,7 @@
                 <h4 class="text-lg font-semibold text-gray-900 mb-4">
                     Configuração de Notificação
                 </h4>
-                <form @submit.prevent="handleSubmit">
+                <form @submit.prevent="handleModeSubmit">
                     <div class="flex flex-col gap-4">
                         <!-- Campo para o responsável -->
                         <div class="">
@@ -87,7 +87,13 @@ import { router } from '@inertiajs/vue3'
 import { useToast } from "vue-toastification";
 
 const toast = useToast();
-const props = defineProps(["isVisible", "data"]);
+const props = defineProps({
+    isVisible:Boolean,
+     data:Object,
+    mode:{
+        type:String,
+        default:'create'
+    }});
 
 const emit = defineEmits(["close", "sucesso", "error"]);
 const close = () => {
@@ -113,7 +119,7 @@ const formData = ref({
 });
 
 
-const handleSubmit = async () => {
+const handleCreate = async () => {
     formData.value.domain = props.data.domainName;
     formData.value.status = props.data.status;
     formData.value.expirationDate = props.data.expirationDate;
@@ -137,6 +143,37 @@ const handleSubmit = async () => {
 
     }
 };
+
+const handleUpdate =async () =>{
+    formData.value.domain = props.data.domainName;
+    formData.value.status = props.data.status;
+    formData.value.expirationDate = props.data.expirationDate;
+    try{
+        await router.put(`/domain/${props.data.id}`,formData.value,{
+            preserveState:true,
+            onSuccess:()=>{
+                sucesso();
+                close();
+            },
+            onError:()=>{
+                error();
+            }
+        })
+    }catch(e){
+        console.error(e);
+    }
+
+}
+
+
+const handleModeSubmit = () =>{
+
+if(props.mode ==='update'){
+    handleUpdate();
+}else{
+    handleCreate()
+}
+}
 </script>
 
 <style scoped>

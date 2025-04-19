@@ -13,9 +13,17 @@ class Dominio extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function getExpirationAttribute($value)
+    // Não precisa formatar
+public function getExpirationAttribute($value)
+{
+    return Carbon::parse($value); // retorna um objeto Carbon
+}
+
+    public function getDataAvisoAttribute(): string
     {
-        return Carbon::parse($value)->format('d/m/Y');
+        $expiration = Carbon::parse($this->getOriginal('expiration')); // 👈 pega valor original (Y-m-d)
+        return $expiration->subDays($this->dias_antecendencia)->format('d/m/Y');
     }
+
 
 }

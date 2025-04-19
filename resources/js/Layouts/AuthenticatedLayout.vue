@@ -63,10 +63,10 @@ const isSidebarOpen = ref(false); // Controla a visibilidade do menu no mobile
           Páginas
         </Link>
         <Link
-          :href="route('report.index')"
+          :href="route('report.show')"
           :class="[
             'flex items-center px-4 py-3 text-gray-600 rounded-lg hover:bg-gray-100',
-            route().current('report.index') ? 'bg-gray-100 text-blue-600 font-semibold' : ''
+            route().current('report.show') ? 'bg-gray-100 text-blue-600 font-semibold' : ''
           ]"
         >
           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 me-3" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(100, 100, 100, 1);transform: ;msFilter:;">
@@ -74,11 +74,23 @@ const isSidebarOpen = ref(false); // Controla a visibilidade do menu no mobile
           </svg>
           Relatórios
         </Link>
+        <Link
+          :href="route('tips.index')"
+          :class="[
+            'flex items-center px-4 py-3 text-gray-600 rounded-lg hover:bg-gray-100',
+            route().current('tips.index') ? 'bg-gray-100 text-blue-600 font-semibold' : ''
+          ]"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 me-3" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(100, 100, 100, 1);transform: ;msFilter:;">
+            <path d="m20 8-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM9 19H7v-9h2v9zm4 0h-2v-6h2v6zm4 0h-2v-3h2v3zM14 9h-1V4l5 5h-4z"></path>
+          </svg>
+          Tabela de Erros
+        </Link>
 
         <Link :href="route('logout')" method="post" as="button"
           :class="[
             'flex items-center px-4 py-3 text-gray-600 rounded-lg hover:bg-gray-100',
-            route().current('report.index') ? 'bg-gray-100 text-blue-600 font-semibold' : ''
+            route().current('logout') ? 'bg-gray-100 text-blue-600 font-semibold' : ''
           ]"
         >
         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 me-3" viewBox="0 0 24 24" style="fill: rgba(100, 100, 100, 1);transform: ;msFilter:;"><path d="M18 2H6a1 1 0 0 0-1 1v9l5-4v3h6v2h-6v3l-5-4v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z"></path></svg>

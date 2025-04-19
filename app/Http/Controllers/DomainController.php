@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\DominioResource;
 use App\Models\Dominio;
 use App\Services\WhoisService;
 use Carbon\Carbon;
@@ -35,8 +36,10 @@ class DomainController extends Controller
         ->appends(['search'=>$search]);
 
 
+
+
         return Inertia::render('Domain/index',[
-            'dominios' => $dominios,
+            'dominios' => DominioResource::collection($dominios),
             'search' => $search
         ]);
     }
@@ -108,7 +111,8 @@ class DomainController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $dominio = Dominio::find($id);
+        return Inertia::render('Domain/editDomain',compact('dominio'));
     }
 
     /**
@@ -116,7 +120,7 @@ class DomainController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        dd($request->all());
     }
 
     /**

@@ -6,6 +6,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\TipsController;
 use App\Http\Controllers\VerificacaoController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -15,7 +16,9 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+Route::get('/reports',[ReportController::class,'show'])->middleware(['auth', 'verified'])->name('report.show');
 Route::get('/report',[ReportController::class,'index'])->middleware(['auth', 'verified'])->name('report.index');
+Route::get('/tips',[TipsController::class,'index'])->middleware(['auth', 'verified'])->name('tips.index');
 Route::get('/dashboard',[DashboardController::class,'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/checkout', [PaymentController::class, 'checkout'])->name('checkout');

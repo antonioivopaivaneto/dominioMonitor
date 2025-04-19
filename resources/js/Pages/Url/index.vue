@@ -118,13 +118,13 @@ const fetchPages = (url) => {
                 <div class="overflow-hidden bg-white shadow sm:rounded-lg">
                     <div class="p-6">
                         <div class="flex justify-between items-center mb-6">
-                            <h3 class="text-2xl font-semibold text-gray-800">
+                            <h3 class="text-3xl font-semibold text-gray-800">
                                 Insira seu domínio e seja notificado sobre seu
                                 status
                             </h3>
                             <Link
                                 href="/pages/create"
-                                class="inline-block px-4 py-2 text-white bg-green-600 hover:bg-green-700 rounded-lg transition duration-300"
+                                class="inline-block px-4 py-2 text-white bg-green-500 hover:bg-green-600 rounded-lg transition duration-300"
                             >
                                 Adicionar Página
                             </Link>
