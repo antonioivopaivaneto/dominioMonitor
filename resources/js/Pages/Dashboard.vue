@@ -149,7 +149,7 @@ const closeModal = () => {
     </ul>
     <div class="text-center mt-6">
         <a
-            :href="route('checkout')"
+            :href="route('checkout', { plan: 'premium' })"
             class="px-6 py-3 text-white bg-blue-500 hover:bg-blue-700 rounded-lg font-semibold text-lg"
         >
             Comece Agora!

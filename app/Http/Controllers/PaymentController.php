@@ -10,30 +10,16 @@ use Inertia\Inertia;
 
 class PaymentController extends Controller
 {
-    protected $stripeService;
-
-    public function __construct(StripeService $stripeService)
-    {
-        $this->stripeService = $stripeService;
-    }
-
     public function checkout(Request $request)
     {
-        $user = Auth::user();
-        $plan= Plan::premium();
+        $plan = Plan::where('name', $request->plan)->first();
 
+        if (!$plan->kiwify_product_id) {
+            abort(404, 'Plano não configurado');
+        }
 
-        return redirect()->to($this->stripeService->createCheckoutSession($plan));
+        $url = "https://pay.kiwify.com.br/{$plan->kiwify_product_id}";
 
-    }
-
-    public function success(Request $request)
-    {
-        $this->stripeService->handlePaymentSuccess($request->session_id);
-        return redirect()->route('dashboard')->with('success','Pagamento realizado com sucesso');
-    }
-
-    public function cancel(){
-        return redirect()->route('dashboard')->withErrors('Pagamento Cancelado.');
+        return redirect()->away($url);
     }
 }
