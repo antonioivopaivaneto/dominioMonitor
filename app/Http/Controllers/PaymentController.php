@@ -14,11 +14,11 @@ class PaymentController extends Controller
     {
         $plan = Plan::where('name', $request->plan)->first();
 
-        if (!$plan->kiwify_product_id) {
+        if (!$plan->kiwify_checkout_id) {
             abort(404, 'Plano não configurado');
         }
 
-        $url = "https://pay.kiwify.com.br/{$plan->kiwify_product_id}";
+        $url = "https://pay.kiwify.com.br/{$plan->kiwify_checkout_id}";
 
         return redirect()->away($url);
     }

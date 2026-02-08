@@ -1,148 +1,185 @@
 <script setup>
-import GuestLayout from '@/Layouts/GuestLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
-import { TheMask } from 'vue-the-mask';
-import { ref } from 'vue';
+import GuestLayout from '@/Layouts/GuestLayout.vue'
+import InputError from '@/Components/InputError.vue'
+import InputLabel from '@/Components/InputLabel.vue'
+import PrimaryButton from '@/Components/PrimaryButton.vue'
+import TextInput from '@/Components/TextInput.vue'
+import { Head, Link, useForm } from '@inertiajs/vue3'
 
-
-const localWhatsapp = ref()
 const form = useForm({
-    name: '',
-    email: '',
-    whatsapp: '',
-    password: '',
-    password_confirmation: '',
-});
+  name: '',
+  email: '',
+  whatsapp: '',
+  password: '',
+  password_confirmation: '',
+})
 
 const submit = () => {
-    form.post(route('register'), {
-        onFinish: () => form.reset('password', 'password_confirmation'),
-    });
-};
+  form.post(route('register'), {
+    onFinish: () => form.reset('password', 'password_confirmation'),
+  })
+}
 </script>
 
 <template>
-    <GuestLayout>
-        <Head title="Cadastro - Notiflow" />
+  <GuestLayout>
+    <Head title="Cadastro | Notiflow" />
 
-        <div class="max-w-7xl min-h-screen flex items-center justify-center overflow-hidden">
-            <div class="bg-white shadow-lg rounded-lg p-10 w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Seção de Boas-Vindas -->
-                <div class="flex flex-col justify-center">
-                    <h1 class="text-3xl md:text-4xl font-bold text-blue-600 mb-4">
-                        Cadastro - Notiflow
-                    </h1>
-                    <p class="text-gray-700 text-lg">
-                        Crie uma conta para monitorar seus domínios e páginas! Receba notificações sobre:
-                    </p>
-                    <ul class="list-disc list-inside text-gray-700 mt-4">
-                        <li>Vencimentos de domínios</li>
-                        <li>Indisponibilidade de páginas</li>
-                        <li>Status de conectividade</li>
-                    </ul>
-                    <p class="mt-4 text-gray-500">
-                        Mantenha sua presença online ativa e sua equipe informada.
-                    </p>
-                </div>
+    <div class="min-h-screen flex items-center justify-center px-4 sm:px-6">
 
-                <!-- Formulário de Registro -->
-                <div>
-                    <form @submit.prevent="submit" class="space-y-6">
-                        <div>
-                            <InputLabel for="name" value="Nome" />
-                            <TextInput
-                                id="name"
-                                type="text"
-                                class="mt-1 block w-full"
-                                v-model="form.name"
-                                required
-                                autofocus
-                                autocomplete="name"
-                            />
-                            <InputError class="mt-2" :message="form.errors.name" />
-                        </div>
+      <!-- CARD COM GLOW -->
+      <div class="relative group w-full max-w-5xl">
 
-                        <div>
-                            <InputLabel for="email" value="Email" />
-                            <TextInput
-                                id="email"
-                                type="email"
-                                class="mt-1 block w-full"
-                                v-model="form.email"
-                                required
-                                autocomplete="username"
-                            />
-                            <InputError class="mt-2" :message="form.errors.email" />
-                        </div>
-                        <div>
-                            <InputLabel for="whatsapp" value="whatsapp" />
-                            <TextInput
-                                id="whatsapp"
-                                type="text"
-                                class="mt-1 block w-full"
-                                v-model="form.whatsapp"
-                                required
-                                autocomplete="username"
-                                v-mask="['(##) ####-####', '(##) #####-####']"
-                            />
-                            <InputError class="mt-2" :message="form.errors.whatsapp" />
-                        </div>
+        <!-- GLOW -->
+        <div
+          class="absolute -inset-6 bg-sky-500/30 blur-3xl rounded-3xl
+                 opacity-30 group-hover:opacity-60 transition"
+        />
 
+        <div
+          class="relative grid grid-cols-1 md:grid-cols-2
+                 bg-slate-900 border border-slate-800
+                 rounded-2xl overflow-hidden shadow-2xl"
+        >
 
+          <!-- LADO ESQUERDO (DESKTOP) -->
+          <div class="hidden md:flex p-10 flex-col justify-center text-white">
+            <span class="text-sm uppercase tracking-wide text-sky-400 mb-4">
+              Comece agora
+            </span>
 
+            <h1 class="text-4xl font-extrabold leading-tight mb-4">
+              Pare de perder<br />
+              <span class="text-sky-400">credibilidade por falhas.</span>
+            </h1>
 
-                        <div>
-                            <InputLabel for="password" value="Senha" />
-                            <TextInput
-                                id="password"
-                                type="password"
-                                class="mt-1 block w-full"
-                                v-model="form.password"
-                                required
-                                autocomplete="new-password"
-                            />
-                            <InputError class="mt-2" :message="form.errors.password" />
-                        </div>
+            <p class="text-slate-300 mb-6">
+              Crie sua conta e monitore domínios e sites de todos os seus clientes
+              em um único painel.
+            </p>
 
-                        <div>
-                            <InputLabel for="password_confirmation" value="Confirmar Senha" />
-                            <TextInput
-                                id="password_confirmation"
-                                type="password"
-                                class="mt-1 block w-full"
-                                v-model="form.password_confirmation"
-                                required
-                                autocomplete="new-password"
-                            />
-                            <InputError
-                                class="mt-2"
-                                :message="form.errors.password_confirmation"
-                            />
-                        </div>
+            <ul class="space-y-2 text-sm text-slate-400">
+              <li>✔ Alertas automáticos</li>
+              <li>✔ Monitoramento 24/7</li>
+              <li>✔ Ideal para agências</li>
+            </ul>
+          </div>
 
-                        <div class="mt-4 flex items-center justify-between">
-                            <Link
-                                :href="route('login')"
-                                class="text-sm text-blue-600 hover:underline"
-                            >
-                                Já tem uma conta? Faça login
-                            </Link>
+          <!-- FORMULÁRIO -->
+          <div class="p-6 sm:p-8 md:p-10 flex flex-col justify-center">
+            <h2 class="text-xl sm:text-2xl font-bold text-white mb-6 text-center">
+              Criar conta no Notiflow
+            </h2>
 
-                            <PrimaryButton
-                                class="w-full"
-                                :class="{ 'opacity-25': form.processing }"
-                                :disabled="form.processing"
-                            >
-                                Registrar
-                            </PrimaryButton>
-                        </div>
-                    </form>
-                </div>
-            </div>
+            <form @submit.prevent="submit" class="space-y-5">
+
+              <div>
+                <InputLabel for="name" value="Nome" class="text-slate-300" />
+                <TextInput
+                  id="name"
+                  type="text"
+                  v-model="form.name"
+                  required
+                  autocomplete="name"
+                  class="mt-1 block w-full rounded-xl
+                         bg-slate-800 border-slate-700
+                         text-white placeholder-slate-400
+                         focus:border-sky-500 focus:ring-sky-500"
+                />
+                <InputError class="mt-1" :message="form.errors.name" />
+              </div>
+
+              <div>
+                <InputLabel for="email" value="Email" class="text-slate-300" />
+                <TextInput
+                  id="email"
+                  type="email"
+                  v-model="form.email"
+                  required
+                  autocomplete="username"
+                  class="mt-1 block w-full rounded-xl
+                         bg-slate-800 border-slate-700
+                         text-white placeholder-slate-400
+                         focus:border-sky-500 focus:ring-sky-500"
+                />
+                <InputError class="mt-1" :message="form.errors.email" />
+              </div>
+
+              <div>
+                <InputLabel for="whatsapp" value="WhatsApp" class="text-slate-300" />
+                <TextInput
+                  id="whatsapp"
+                  type="text"
+                  v-model="form.whatsapp"
+                  required
+                  v-mask="['(##) ####-####', '(##) #####-####']"
+                  class="mt-1 block w-full rounded-xl
+                         bg-slate-800 border-slate-700
+                         text-white placeholder-slate-400
+                         focus:border-sky-500 focus:ring-sky-500"
+                />
+                <InputError class="mt-1" :message="form.errors.whatsapp" />
+              </div>
+
+              <div>
+                <InputLabel for="password" value="Senha" class="text-slate-300" />
+                <TextInput
+                  id="password"
+                  type="password"
+                  v-model="form.password"
+                  required
+                  autocomplete="new-password"
+                  class="mt-1 block w-full rounded-xl
+                         bg-slate-800 border-slate-700
+                         text-white placeholder-slate-400
+                         focus:border-sky-500 focus:ring-sky-500"
+                />
+                <InputError class="mt-1" :message="form.errors.password" />
+              </div>
+
+              <div>
+                <InputLabel
+                  for="password_confirmation"
+                  value="Confirmar senha"
+                  class="text-slate-300"
+                />
+                <TextInput
+                  id="password_confirmation"
+                  type="password"
+                  v-model="form.password_confirmation"
+                  required
+                  autocomplete="new-password"
+                  class="mt-1 block w-full rounded-xl
+                         bg-slate-800 border-slate-700
+                         text-white placeholder-slate-400
+                         focus:border-sky-500 focus:ring-sky-500"
+                />
+                <InputError
+                  class="mt-1"
+                  :message="form.errors.password_confirmation"
+                />
+              </div>
+
+              <PrimaryButton
+                class="w-full rounded-xl bg-sky-500 hover:bg-sky-400
+                       text-slate-900 font-semibold py-3 transition"
+                :class="{ 'opacity-50': form.processing }"
+                :disabled="form.processing"
+              >
+                Criar conta
+              </PrimaryButton>
+            </form>
+
+            <p class="mt-6 text-center text-sm text-slate-400">
+              Já tem uma conta?
+              <Link href="/login" class="text-sky-400 hover:underline">
+                Entrar
+              </Link>
+            </p>
+          </div>
+
         </div>
-    </GuestLayout>
+      </div>
+    </div>
+  </GuestLayout>
 </template>

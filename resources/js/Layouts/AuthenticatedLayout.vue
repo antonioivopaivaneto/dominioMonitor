@@ -106,7 +106,7 @@ const isSidebarOpen = ref(false); // Controla a visibilidade do menu no mobile
     <!-- Main Content -->
     <div class="flex-1 flex flex-col">
       <!-- Topbar -->
-      <header class="flex items-center justify-between bg-blue-600 shadow px-6 py-4 text-white">
+      <header class="flex items-center  bg-blue-600 shadow px-6 py-4 text-white">
         <button
           @click="isSidebarOpen = !isSidebarOpen"
           class="md:hidden text-white focus:outline-none"
@@ -116,7 +116,18 @@ const isSidebarOpen = ref(false); // Controla a visibilidade do menu no mobile
           </svg>
         </button>
         <h1 class="text-xl font-semibold text-white">Dashboard</h1>
+          <div class="ml-auto flex items-center gap-4"></div>
+
+        <a v-if="$page.props.auth.plan == 'free'"
+            :href="route('checkout', { plan: 'premium' })"
+            class="px-4 py-2 justify-end text-white bg-green-500 hover:bg-blue-700 rounded-lg font-semibold text-lg"
+        >
+            Seja Premium
+        </a>
+
+
         <Dropdown align="right" width="48">
+
           <template #trigger>
             <button
               type="button"
@@ -139,8 +150,10 @@ const isSidebarOpen = ref(false); // Controla a visibilidade do menu no mobile
       </header>
 
       <div class="bg-white mx-auto w-full text-center text-blue-500">
-        <p>Seu plano é: {{ $page.props.auth.plan }}</p>
+        <p>Seu plano é: <span class="font-bold">{{ $page.props.auth.plan }}</span></p>
       </div>
+
+
 
       <!-- Content -->
       <main class="flex-1 overflow-y-auto p-6">

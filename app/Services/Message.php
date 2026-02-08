@@ -5,7 +5,7 @@ namespace App\Services;
 
 interface Message
 {
-    public function enviar($numero,$mensagem);
+    public function enviar( $numero, $mensagem);
 
 
 }

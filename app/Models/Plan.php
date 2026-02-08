@@ -10,7 +10,7 @@ class Plan extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'max_domains', 'price','kiwify_product_id'];
+    protected $fillable = ['name', 'max_domains', 'price','kiwify_product_id', 'kiwify_checkout_id'];
 
     public function users(): HasMany
     {

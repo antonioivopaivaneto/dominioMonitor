@@ -22,6 +22,15 @@ class DomainService
 
     }
 
+
+    private function normalizePhone(?string $phone): ?string
+{
+    if (!$phone) return null;
+
+    return preg_replace('/\D/', '', $phone);
+}
+
+
     public function checkDomain()
     {
 
@@ -62,7 +71,29 @@ class DomainService
 
                 Mail::to($domain->email)->send(new DomainExpiryAlert($domain));
 
-                $this->messageService->enviar($domain->user->whatsapp, "Alerta: Seu domínio {$domain->dominio} está prestes a expirar!");
+               try {
+                   $phone = $this->normalizePhone($domain->user->whatsapp);
+
+                    if ($phone && strlen($phone) >= 12) {
+                        $this->messageService->enviar(
+                            $phone,
+                            "⚠️ O domínio {$domain->dominio} vence em breve."
+                        );
+                    } else {
+                        \Log::warning('WhatsApp não enviado - telefone inválido', [
+                            'original' => $domain->user->whatsapp,
+                            'normalizado' => $phone,
+                        ]);
+                    }
+
+                } catch (\Throwable $e) {
+                    \Log::warning('Falha ao enviar WhatsApp', [
+                        'domain' => $domain->dominio,
+                        'error' => $e->getMessage(),
+                    ]);
+                }
+
+
 
                 $domain->notificado = true;
                 $domain->save();

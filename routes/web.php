@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DomainController;
+use App\Http\Controllers\LeadController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
@@ -13,8 +14,12 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return redirect()->route('login');
-});
+    return Inertia::render('Landing/Home');
+})->name('landing');
+
+
+Route::post('/baixar-pdf', [LeadController::class, 'store'])->name('lead.store');
+Route::get('/download-pdf', [LeadController::class, 'download'])->name('download.pdf');
 
 Route::get('/reports',[ReportController::class,'show'])->middleware(['auth', 'verified'])->name('report.show');
 Route::get('/report',[ReportController::class,'index'])->middleware(['auth', 'verified'])->name('report.index');
